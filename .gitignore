@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+*.egg-info/
+
+# DB locale complète (trop lourde — utiliser data/edr_dashboard.db)
+*.db
+!data/edr_dashboard.db
+
+# Logs & tmp
+*.log
+/tmp/
+*.tmp
+
+# Cloudflare
+.cloudflare_tunnel_token
+
+# Environnement
+.env
+*.env
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Playwright
+playwright-report/

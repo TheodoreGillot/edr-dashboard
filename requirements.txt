@@ -1,0 +1,17 @@
+# ──────────────────────────────────────────────────────────────────────────────
+# EDR — Dépendances Dashboard (Streamlit Community Cloud)
+# ──────────────────────────────────────────────────────────────────────────────
+
+# Base de données
+sqlalchemy>=2.0
+
+# Analyse / Traitement
+pandas>=2.1
+numpy>=1.26
+
+# Dashboard
+streamlit>=1.30
+plotly>=5.18
+
+# Utilitaires
+python-dateutil>=2.8

@@ -1,0 +1,16 @@
+﻿entite,metrique,categorie,derniere_valeur,date_recente
+BVI,anteil_institutionelle,repartition_investisseurs,69.0,2024-12-31
+BVI,anteil_privatanleger,repartition_investisseurs,31.0,2024-12-31
+BVI,croissance_annuelle_allemagne,performance,8.0,2024-12-31
+BVI,fondsvermogen_deutschland,structure_marche,4164000.0,2024-12-31
+BVI,fondsvermogen_deutschland_court,structure_marche,4100000.0,2024-12-31
+BVI,fondsvermogen_eu_total,structure_marche,16000000.0,2024-12-31
+JustETF (proxy),fondsvermogen_em_aktien,segmentation_type,70043.0,2026-03-19
+JustETF (proxy),fondsvermogen_eu_aktien,segmentation_type,190127.0,2026-03-19
+JustETF (proxy),fondsvermogen_geldmarktfonds,segmentation_type,8079.0,2026-03-19
+JustETF (proxy),fondsvermogen_immobilienfonds,segmentation_type,9371.0,2026-03-19
+JustETF (proxy),fondsvermogen_rentenfonds,segmentation_type,200246.0,2026-03-19
+JustETF (proxy),fondsvermogen_rohstoffe,segmentation_type,167749.0,2026-03-19
+JustETF (proxy),fondsvermogen_sonstige_aktien,segmentation_type,222158.0,2026-03-19
+JustETF (proxy),fondsvermogen_us_aktien,segmentation_type,813620.0,2026-03-19
+JustETF (proxy),fondsvermogen_welt_aktien,segmentation_type,163494.0,2026-03-19

@@ -1,0 +1,18 @@
+{
+  "morningstar": [],
+  "bvi": {
+    "https://www.bvi.de/statistik/": {
+      "tables": [],
+      "key_figures": []
+    },
+    "https://www.bvi.de/statistik/fondsvermögen/": {
+      "tables": [],
+      "key_figures": []
+    },
+    "https://www.bvi.de/statistik/absatzstatistik/": {
+      "tables": [],
+      "key_figures": []
+    }
+  },
+  "fondsweb": []
+}
