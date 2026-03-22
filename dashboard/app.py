@@ -110,9 +110,7 @@ page = st.sidebar.radio("Navigation", [
     "Societes de gestion",
     "Segmentation marche",
     "Actifs Non Cotes",
-    "Reglementation",
     "Analyse Presse",
-    "Sources & Monitoring",
 ])
 
 
@@ -483,36 +481,6 @@ elif page == "Actifs Non Cotes":
                                coloraxis_showscale=False)
             st.plotly_chart(fig4, use_container_width=True)
 
-
-# ══════════════════════════════════════════════════════════════════════════════
-# PAGE : Reglementation
-# ══════════════════════════════════════════════════════════════════════════════
-
-elif page == "Reglementation":
-    st.title("Veille reglementaire")
-    regs = load_reglementation()
-
-    if regs.empty:
-        st.info("Aucune donnee reglementaire disponible.")
-    else:
-        k1, k2 = st.columns(2)
-        k1.metric("Textes suivis", len(regs))
-        k2.metric("Organismes", regs["organisme"].nunique() if "organisme" in regs.columns else 0)
-
-        orgs = ["Tous"] + sorted(regs["organisme"].dropna().unique().tolist())
-        selected_org = st.selectbox("Organisme", orgs)
-        if selected_org != "Tous":
-            regs = regs[regs["organisme"] == selected_org]
-
-        for _, row in regs.iterrows():
-            with st.expander(f"{row.get('titre', 'Sans titre')[:120]}"):
-                c1, c2 = st.columns(2)
-                c1.markdown(f"**Organisme :** {row.get('organisme', '—')}")
-                c2.markdown(f"**Type :** {row.get('type_texte', '—')}")
-                if row.get("resume"):
-                    st.markdown(row["resume"][:500])
-                if row.get("url_document"):
-                    st.markdown(f"[Voir le document]({row['url_document']})")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -891,59 +859,4 @@ elif page == "Analyse Presse":
                 st.info("Textes insuffisants pour l'analyse.")
 
 
-# ══════════════════════════════════════════════════════════════════════════════
-# PAGE : Sources & Monitoring
-# ══════════════════════════════════════════════════════════════════════════════
 
-elif page == "Sources & Monitoring":
-    st.title("Sources & Monitoring")
-
-    tab_src, tab_mon = st.tabs(["Sources", "Monitoring"])
-
-    with tab_src:
-        sources = load_sources()
-        if sources.empty:
-            st.info("Aucune source enregistree.")
-        else:
-            c1, c2, c3 = st.columns(3)
-            with c1:
-                sf = st.selectbox("Secteur", ["Tous"] + sorted(sources["secteur_nom"].unique().tolist()))
-            with c2:
-                tf = st.selectbox("Type", ["Tous"] + sorted(sources["type_source"].unique().tolist()))
-            with c3:
-                pf = st.selectbox("Priorite", ["Tous", "high", "medium", "low"])
-
-            df = sources.copy()
-            if sf != "Tous": df = df[df["secteur_nom"] == sf]
-            if tf != "Tous": df = df[df["type_source"] == tf]
-            if pf != "Tous": df = df[df["priorite"] == pf]
-
-            st.metric("Sources filtrees", len(df))
-            st.dataframe(df[["url", "domain", "secteur_nom", "type_source",
-                             "priorite", "dernier_scrape"]], height=500)
-
-    with tab_mon:
-        logs = load_scrape_log()
-        if logs.empty:
-            st.info("Aucun log de scraping.")
-        else:
-            total = len(logs)
-            success = logs["success"].sum() if "success" in logs.columns else 0
-
-            k1, k2, k3 = st.columns(3)
-            k1.metric("Total scrapes", f"{total:,}")
-            k2.metric("Succes", f"{int(success):,}")
-            k3.metric("Taux succes", f"{success/total*100:.1f} %" if total > 0 else "—")
-
-            if "scrape_date" in logs.columns:
-                logs["scrape_date"] = pd.to_datetime(logs["scrape_date"])
-                daily = logs.set_index("scrape_date").resample("D")["success"].agg(["count", "sum"])
-                daily.columns = ["Total", "Succes"]
-                fig = px.line(daily, y=["Total", "Succes"], title="Scrapes par jour")
-                fig.update_layout(height=350)
-                st.plotly_chart(fig, use_container_width=True)
-
-            errors = logs[logs["success"] == False].tail(15) if "success" in logs.columns else pd.DataFrame()
-            if not errors.empty:
-                st.subheader("Dernieres erreurs")
-                st.dataframe(errors[["url", "error_message", "status_code", "scrape_date"]].tail(10))
