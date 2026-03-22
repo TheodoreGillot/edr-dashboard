@@ -3,14 +3,32 @@
 # ──────────────────────────────────────────────────────────────────────────────
 import sys
 from pathlib import Path
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+_APP_DIR = Path(__file__).resolve().parent
+_PROJECT_ROOT = _APP_DIR.parent
+sys.path.insert(0, str(_PROJECT_ROOT))
 
 import streamlit as st
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 from datetime import datetime
-from database.models import engine
+
+# ── DB Engine (resilient) ────────────────────────────────────────────────────
+_DB_PATH = _PROJECT_ROOT / "data" / "edr_dashboard.db"
+_engine = None
+_db_error = None
+
+try:
+    from sqlalchemy import create_engine
+    _dsn = f"sqlite:///{_DB_PATH}"
+    _engine = create_engine(_dsn, echo=False, future=True,
+                            connect_args={"check_same_thread": False})
+    # Quick sanity check
+    with _engine.connect() as _conn:
+        _conn.execute(__import__("sqlalchemy").text("SELECT 1"))
+except Exception as e:
+    _db_error = str(e)
 
 st.set_page_config(
     page_title="EDR Intelligence",
@@ -22,8 +40,10 @@ st.set_page_config(
 
 @st.cache_data(ttl=300)
 def load_table(table: str) -> pd.DataFrame:
+    if _engine is None:
+        return pd.DataFrame()
     try:
-        df = pd.read_sql(f"SELECT * FROM {table}", engine)
+        df = pd.read_sql(f"SELECT * FROM {table}", _engine)
         numeric_cols = {
             "fonds": ["perf_ytd_pct", "perf_1y_pct", "perf_3y_pct",
                        "perf_5y_pct", "ter_pct", "aum_meur"],
@@ -34,7 +54,8 @@ def load_table(table: str) -> pd.DataFrame:
             if col in df.columns:
                 df[col] = pd.to_numeric(df[col], errors="coerce")
         return df
-    except Exception:
+    except Exception as e:
+        st.warning(f"Erreur chargement table '{table}': {e}")
         return pd.DataFrame()
 
 
@@ -47,6 +68,8 @@ def load_scrape_log():  return load_table("scrape_log")
 
 def load_scrape_raw_sectors(sector_names: list[str]) -> pd.DataFrame:
     """Charge scrape_raw jointé aux sources pour les secteurs donnés."""
+    if _engine is None:
+        return pd.DataFrame()
     try:
         ph = ",".join(f"'{s}'" for s in sector_names)
         return pd.read_sql(
@@ -59,8 +82,9 @@ def load_scrape_raw_sectors(sector_names: list[str]) -> pd.DataFrame:
                   AND length(sr.contenu_text) > 200
                 ORDER BY sr.scrape_date DESC
                 LIMIT 2000""",
-            engine)
-    except Exception:
+            _engine)
+    except Exception as e:
+        st.warning(f"Erreur chargement scrape_raw: {e}")
         return pd.DataFrame()
 
 
@@ -68,6 +92,17 @@ def load_scrape_raw_sectors(sector_names: list[str]) -> pd.DataFrame:
 
 st.sidebar.title("EDR Intelligence")
 st.sidebar.caption("Asset Management — Allemagne")
+
+# Debug DB status
+with st.sidebar.expander("Diagnostic DB"):
+    st.text(f"DB: {_DB_PATH}")
+    st.text(f"Exists: {_DB_PATH.exists()}")
+    if _DB_PATH.exists():
+        st.text(f"Size: {_DB_PATH.stat().st_size / 1e6:.1f} MB")
+    if _db_error:
+        st.error(f"Erreur: {_db_error}")
+    elif _engine:
+        st.success("Connexion OK")
 
 page = st.sidebar.radio("Navigation", [
     "Vue d'ensemble",
@@ -347,8 +382,9 @@ elif page == "Actifs Non Cotes":
                JOIN sources s ON s.id = sr.source_id
                WHERE s.secteur_nom = 'Actifs Non Cotés'
                ORDER BY sr.scrape_date DESC LIMIT 500""",
-            engine)
-    except Exception:
+            _engine) if _engine else pd.DataFrame()
+    except Exception as e:
+        st.warning(f"Erreur chargement Non Cotes: {e}")
         nc_scraped = pd.DataFrame()
 
     # KPIs
