@@ -652,99 +652,321 @@ elif page == "📰 Analyse Presse & Légal":
         "**Cadre Légal & Réglementaire** (Allemand → Français traduit automatiquement)."
     )
 
-    # Dictionnaire de traduction allemand → français (termes finance/légal clés)
+    # ── Dictionnaire de traduction DE → FR (termes finance / légal / thèmes cibles) ──
     DE_FR_DICT = {
-        # Termes financiers généraux
-        "fonds": "fonds", "fondsvermögen": "actifs sous gestion", "investitionen": "investissements",
-        "anleger": "investisseurs", "anlegerinnen": "investisseurs", "kapitalanlage": "placement",
-        "kapitalanlagen": "placements", "geldanlage": "épargne/placement", "rendite": "rendement",
+        # ── Finances générales ────────────────────────────────────────────────────
+        "fonds": "fonds", "fondsvermögen": "actifs sous gestion",
+        "investitionen": "investissements", "investition": "investissement",
+        "anleger": "investisseurs", "anlegerinnen": "investisseurs",
+        "kapitalanlage": "placement", "kapitalanlagen": "placements",
+        "geldanlage": "épargne/placement", "rendite": "rendement",
         "performance": "performance", "risiko": "risque", "risiken": "risques",
         "markt": "marché", "märkte": "marchés", "marktanteil": "part de marché",
+        "marktanteile": "parts de marché",
         "verwaltung": "gestion", "verwaltungsgebühr": "frais de gestion",
         "nachhaltig": "durable", "nachhaltigkeit": "durabilité",
         "regulierung": "régulation", "regulierungen": "régulations",
-        "vorschriften": "réglementations", "richtlinie": "directive", "verordnung": "règlement",
-        "gesetz": "loi", "gesetze": "lois", "rechtlich": "juridique",
+        "vorschriften": "réglementations", "richtlinie": "directive",
+        "verordnung": "règlement", "gesetz": "loi", "gesetze": "lois",
+        "rechtlich": "juridique", "rechtliche": "juridique",
         "aufsicht": "supervision", "aufsichtsbehörde": "autorité de supervision",
         "zulassung": "autorisation", "genehmigung": "approbation",
         "offenlegung": "divulgation", "transparenz": "transparence",
         "berichterstattung": "reporting", "bericht": "rapport", "berichte": "rapports",
         "jahresbericht": "rapport annuel", "halbjahresbericht": "rapport semestriel",
         "portfolio": "portefeuille", "portfolios": "portefeuilles",
-        "aktien": "actions", "anleihen": "obligations", "renten": "obligations/rentes",
+        "aktien": "actions", "aktie": "action", "anleihen": "obligations",
+        "renten": "obligations/rentes",
         "immobilien": "immobilier", "infrastruktur": "infrastructure",
         "alternativen": "alternatifs", "alternative": "alternatif",
-        "private equity": "private equity", "privatmarkt": "marché privé",
+        "privatmarkt": "marché privé", "privatmärkte": "marchés privés",
         "schulden": "dette", "kredit": "crédit", "darlehen": "prêt",
         "zinsen": "taux d'intérêt", "zins": "intérêt", "zinssatz": "taux",
         "inflation": "inflation", "deflation": "déflation",
-        "wachstum": "croissance", "wirtschaft": "économie", "wirtschaftlich": "économique",
+        "wachstum": "croissance", "wirtschaft": "économie",
+        "wirtschaftlich": "économique", "wirtschaftliche": "économiques",
         "deutschland": "Allemagne", "europa": "Europe", "europäisch": "européen",
+        "europäische": "européenne",
         "institution": "institution", "institutionell": "institutionnel",
+        "institutionelle": "institutionnels", "institutionellen": "institutionnels",
         "privatanleger": "investisseur privé", "retail": "particuliers",
-        "zuflüsse": "flux entrants", "abflüsse": "flux sortants", "flüsse": "flux",
-        "verwaltete": "géré(s)", "vermögen": "patrimoine/actifs",
+        "zuflüsse": "flux entrants", "abflüsse": "flux sortants",
+        "vermögen": "patrimoine/actifs", "verwaltete": "géré(s)",
+        "vermögenswerte": "actifs", "vermögensverwaltung": "gestion de patrimoine",
         "sparplan": "plan d'épargne", "sparpläne": "plans d'épargne",
-        "etf": "ETF", "indexfonds": "fonds indiciels", "aktiv": "actif", "passiv": "passif",
-        "kosten": "coûts", "gebühren": "frais", "ter": "TER", "total expense ratio": "ratio de frais total",
+        "etf": "ETF", "indexfonds": "fonds indiciels",
+        "kosten": "coûts", "gebühren": "frais", "ter": "TER",
         "vertrieb": "distribution", "vertriebskanal": "canal de distribution",
-        "berater": "conseiller", "beratung": "conseil", "beratungsgebühr": "frais de conseil",
+        "berater": "conseiller", "beratung": "conseil",
         "esg": "ESG", "nachhaltige": "durables", "grüne": "verts/vertes",
         "klimawandel": "changement climatique", "umwelt": "environnement",
-        "sfdr": "SFDR", "artikel": "article", "offenlegungsverordnung": "SFDR",
+        "sfdr": "SFDR", "offenlegungsverordnung": "SFDR",
         "mifid": "MiFID", "aifmd": "AIFMD", "ucits": "OPCVM", "aifm": "FIA",
-        "bafin": "BaFin", "bundesbank": "Bundesbank", "esma": "ESMA", "efama": "EFAMA",
-        "bvi": "BVI", "eltif": "ELTIF", "aif": "FIA", "spezialfonds": "fonds spéciaux",
-        "sondervermögen": "Sondervermögen", "bundeswehr": "Bundeswehr",
-        "altersvorsorge": "retraite", "rente": "retraite/pension", "pensionskasse": "caisse de pension",
-        "betriebliche": "professionnel(le)", "versicherung": "assurance",
-        "haftung": "responsabilité", "compliance": "conformité",
-        "greenwashing": "greenwashing", "klimarisiken": "risques climatiques",
-        "technologie": "technologie", "digitalisierung": "digitalisation",
-        "künstliche intelligenz": "intelligence artificielle", "blockchain": "blockchain",
-        "daten": "données", "plattform": "plateforme",
-        "institutionelle": "institutionnels", "vermögensverwalter": "gestionnaires d'actifs",
+        "bafin": "BaFin", "bundesbank": "Bundesbank", "esma": "ESMA",
+        "efama": "EFAMA", "bvi": "BVI", "eltif": "ELTIF", "aif": "FIA",
+        "spezialfonds": "fonds spéciaux", "publikumsfonds": "fonds grand public",
+        "altersvorsorge": "retraite", "pensionskasse": "caisse de pension",
+        "versicherung": "assurance", "haftung": "responsabilité",
+        "compliance": "conformité", "greenwashing": "greenwashing",
+        "klimarisiken": "risques climatiques",
+        "vermögensverwalter": "gestionnaires d'actifs",
         "fondsmanager": "gérants de fonds", "fondsgesellschaft": "société de gestion",
         "kapitalverwaltungsgesellschaft": "société de gestion", "kvg": "SGP",
-        "banken": "banques", "spezialisten": "spécialistes",
+        "banken": "banques",
         "wettbewerb": "concurrence", "marktentwicklung": "évolution du marché",
         "prognose": "prévision", "ausblick": "perspectives",
-        "niedrigzins": "bas taux", "hochzins": "haut rendement", "zinswende": "retournement des taux",
+        "niedrigzins": "bas taux", "hochzins": "haut rendement",
+        "zinswende": "retournement des taux",
         "rezession": "récession", "konjunktur": "conjoncture",
-        "high yield": "haut rendement", "investment grade": "investment grade",
-        "unternehmensanleihen": "obligations d'entreprise", "staatsanleihen": "obligations d'État",
-        "covered bonds": "obligations sécurisées", "pfandbriefe": "Pfandbriefe",
+        "unternehmensanleihen": "obligations d'entreprise",
+        "staatsanleihen": "obligations d'État",
+        "pfandbriefe": "Pfandbriefe",
+        # ── THÈME 1 : Digitalisation ──────────────────────────────────────────────
+        "digital": "digitalisation", "digitale": "digitalisation",
+        "digitalen": "digitalisation", "digitaler": "digitalisation",
+        "digitales": "digitalisation", "digitalem": "digitalisation",
+        "digitalisierung": "digitalisation", "digitalisierungen": "digitalisation",
+        "digitalisiert": "digitalisé", "digitalisierte": "digitalisés",
+        "digitalisiertes": "digitalisé", "digitalisierten": "digitalisés",
+        "techfinance": "techfinance", "fintech": "fintech",
+        "regtech": "RegTech", "insurtech": "InsurTech",
+        "plattform": "plateforme", "plattformen": "plateformes",
+        "algorithmus": "algorithme", "algorithmen": "algorithmes",
+        "automatisierung": "automatisation", "automatisiert": "automatisé",
+        "künstliche": "intelligence artificielle",
+        "intelligenz": "intelligence", "blockchain": "blockchain",
+        "robo": "robo-advisor", "wealthtech": "wealthtech",
+        "onlinebanking": "banque en ligne", "cloudcomputing": "cloud computing",
+        "cybersicherheit": "cybersécurité", "datensicherheit": "sécurité des données",
+        # ── THÈME 2 : Construction ────────────────────────────────────────────────
+        "bau": "construction", "bauen": "construction", "gebaut": "construit",
+        "baute": "construction",
+        "wohnungsbau": "construction de logements",
+        "wohnungsbaus": "construction de logements",
+        "baugewerbe": "secteur de la construction",
+        "bauwirtschaft": "industrie de la construction",
+        "bauprojekte": "projets de construction",
+        "bauprojekt": "projet de construction",
+        "bauleistung": "prestation de construction",
+        "bauboom": "boom de la construction",
+        "bauvolumen": "volume de construction",
+        "neubau": "construction neuve", "neubauten": "nouvelles constructions",
+        "neubaus": "construction neuve",
+        "hochbau": "construction de bâtiments", "tiefbau": "génie civil",
+        "sanierung": "rénovation/assainissement", "renovierung": "rénovation",
+        "umbau": "réaménagement", "umbaus": "réaménagement",
+        "wohnimmobilien": "immobilier résidentiel",
+        "gewerbeimmobilien": "immobilier commercial",
+        "gebäude": "bâtiments", "gebäuden": "bâtiments",
+        "immobilienwirtschaft": "secteur immobilier",
+        "grundstück": "terrain", "grundstücke": "terrains",
+        # ── THÈME 3 : Armement / Défense ─────────────────────────────────────────
+        "rüstung": "armement", "rüstungen": "armement",
+        "rüstungsgüter": "équipements militaires",
+        "rüstungsindustrie": "industrie de l'armement",
+        "rüstungsunternehmen": "entreprises d'armement",
+        "rüstungsausgaben": "dépenses d'armement",
+        "rüstungsexporte": "exportations d'armement",
+        "verteidigung": "défense",
+        "verteidigungsausgaben": "dépenses de défense",
+        "verteidigungsinvestitionen": "investissements défense",
+        "verteidigungsminister": "ministre de la défense",
+        "verteidigungspolitik": "politique de défense",
+        "bundeswehr": "Bundeswehr (armée allemande)",
+        "sondervermögen": "Sondervermögen (fonds spécial défense)",
+        "militär": "militaire", "militärische": "militaires",
+        "militärischen": "militaires",
+        "aufrüstung": "réarmement", "aufrüstungen": "réarmements",
+        "wehretat": "budget défense", "wehrhaushalt": "budget défense",
+        "sicherheitspolitik": "politique de sécurité",
+        "geopolitisch": "géopolitique", "geopolitik": "géopolitique",
+        "geopolitische": "géopolitiques", "geopolitischen": "géopolitiques",
+        "nato": "OTAN", "natopartner": "partenaires OTAN",
+        "krieg": "guerre", "kriege": "guerres",
+        "ukraine": "Ukraine", "russland": "Russie",
+        "sanktionen": "sanctions", "sanktion": "sanction",
+        # ── THÈME 4 : Efficacité énergétique ─────────────────────────────────────
+        "energieeffizienz": "efficacité énergétique",
+        "energieeffizient": "efficacité énergétique",
+        "energieeffiziente": "efficacité énergétique",
+        "energieeffizienter": "efficacité énergétique",
+        "energieeffizienten": "efficacité énergétique",
+        "energiesparen": "économies d'énergie",
+        "energiesparmaßnahmen": "mesures d'économies d'énergie",
+        "energieverbrauch": "consommation énergétique",
+        "energiebedarf": "besoins énergétiques",
+        "energiewende": "transition énergétique",
+        "energiepolitik": "politique énergétique",
+        "energieversorgung": "approvisionnement énergétique",
+        "energieinfrastruktur": "infrastructure énergétique",
+        "energie": "énergie", "energien": "énergies",
+        "erneuerbare": "énergies renouvelables",
+        "erneuerbar": "renouvelable", "erneuerbaren": "renouvelables",
+        "photovoltaik": "photovoltaïque", "solarenergie": "énergie solaire",
+        "windenergie": "énergie éolienne", "windkraft": "énergie éolienne",
+        "offshore": "offshore", "onshore": "onshore",
+        "dekarbonisierung": "décarbonation",
+        "klimaschutz": "protection climatique",
+        "treibhausgas": "gaz à effet de serre",
+        "treibhausgase": "gaz à effet de serre",
+        "klimaneutral": "neutre en carbone",
+        "klimaneutrale": "neutre en carbone",
+        "nettoemissionen": "émissions nettes",
+        "wasserstoff": "hydrogène", "grüner": "vert",
+        "elektromobilität": "mobilité électrique",
+        "wärmepumpe": "pompe à chaleur", "wärmepumpen": "pompes à chaleur",
+        "gebäudesanierung": "rénovation énergétique des bâtiments",
+        "gebäudeenergie": "énergie des bâtiments",
+        "solarzellen": "cellules solaires",
     }
 
-    # Stopwords allemands pour filtrage
+    # ── Stopwords exhaustifs : mots sans valeur sémantique ───────────────────────
+    # (articles, prépositions, pronoms, conjonctions, RGPD/cookies, anglais, navigation)
     DE_STOPWORDS = {
-        "die", "der", "das", "und", "ist", "in", "von", "mit", "für", "auf",
-        "an", "zu", "im", "des", "bei", "als", "wie", "eine", "ein", "oder",
-        "sich", "den", "dem", "nicht", "auch", "wird", "aus", "es", "am",
-        "bis", "durch", "mehr", "nach", "zum", "haben", "wird", "werden",
-        "wurde", "waren", "haben", "hatte", "kann", "können", "wird", "werde",
-        "seine", "ihrer", "seinem", "ihrem", "dass", "ob", "wenn", "aber",
-        "noch", "nur", "schon", "seit", "über", "unter", "zwischen", "gegen",
-        "ohne", "während", "wegen", "dabei", "damit", "dazu", "dann", "so",
-        "um", "sind", "hat", "sie", "er", "wir", "ihr", "ihre", "seinen",
-        "diesen", "dieser", "dieses", "einen", "einem", "einer", "jeder",
-        "alle", "allem", "viele", "vielen", "sowie", "dass", "welche",
-        "diesem", "diesen", "hierzu", "hierfür", "dabei", "hieran",
-        "https", "www", "com", "de", "en", "html", "pdf", "htm",
-        "januar", "februar", "märz", "april", "mai", "juni",
+        # Articles allemands
+        "die", "der", "das", "den", "dem", "des",
+        "eine", "ein", "einem", "einen", "einer", "eines",
+        # Prépositions et conjonctions
+        "und", "oder", "aber", "denn", "weil", "dass", "wenn",
+        "als", "wie", "da", "seit", "bis", "durch", "für", "gegen",
+        "ohne", "um", "bei", "nach", "von", "vor", "mit", "aus",
+        "auf", "in", "über", "unter", "zwischen", "neben", "hinter",
+        "an", "zu", "im", "am", "zum", "zur", "ins", "ans", "beim",
+        "ob", "weil", "damit", "obwohl", "während", "seitdem",
+        "nachdem", "bevor", "sobald", "sofern", "solange",
+        "entweder", "sondern", "sowohl", "weder", "zwar",
+        # Pronoms
+        "ich", "du", "er", "sie", "es", "wir", "ihr",
+        "mich", "dich", "sich", "mir", "dir", "ihm",
+        "uns", "euch", "ihnen", "mein", "dein", "sein",
+        "unser", "euer", "dieser", "diese", "dieses", "diesem",
+        "diesen", "jener", "jene", "jenes", "jedem", "jedes",
+        "welche", "welcher", "welches", "welchem", "welchen",
+        "alle", "allem", "allen", "alles", "jede", "jeden",
+        "jeder", "kein", "keine", "keinen", "keiner", "keinem",
+        "man", "manche", "manchen", "mancher", "manches",
+        "einen", "einem", "einer", "eines",
+        # Verbes auxiliaires et modaux
+        "ist", "sind", "war", "waren", "wird", "werden", "wurde",
+        "wurden", "worden", "hat", "haben", "hatte", "hatten",
+        "hätte", "hätten", "kann", "können", "konnte", "konnten",
+        "soll", "sollen", "sollte", "sollten", "will", "wollen",
+        "wollte", "wollten", "darf", "dürfen", "durfte", "durften",
+        "muss", "müssen", "musste", "mussten", "werde", "wäre",
+        "wären", "sein", "lassen", "macht", "machen", "gemacht",
+        "gibt", "geben", "gegeben", "kommt", "kommen", "gekommen",
+        "geht", "gehen", "gestanden",
+        # Adverbes et mots de liaison courants
+        "nicht", "auch", "noch", "nur", "schon", "mehr", "sehr",
+        "bereits", "immer", "nie", "oft", "bald", "hier", "dort",
+        "daher", "deshalb", "deswegen", "jedoch", "trotzdem",
+        "dabei", "dazu", "davon", "daran", "darum", "dafür",
+        "davor", "danach", "dann", "nun", "jetzt", "heute",
+        "gestern", "morgen", "so", "also", "doch", "mal", "wohl",
+        "eben", "ja", "nein", "weiter", "weiterhin", "zudem",
+        "außerdem", "ebenfalls", "ebenso", "sowie", "hierzu",
+        "hierfür", "hieran", "hierbei", "hiervon", "darunter",
+        "darüber", "daraus", "darauf", "daraufhin", "lediglich",
+        "insbesondere", "beispielsweise", "insgesamt", "generell",
+        "grundsätzlich", "allgemein", "allgemeinen", "gleich",
+        "gleichzeitig", "zusätzlich", "entsprechend", "beziehungsweise",
+        "rund", "etwa", "fast", "bereits", "noch", "wieder",
+        "immer", "stets", "gerade", "jeweils", "aktuell",
+        "derzeit", "zuletzt", "zunächst", "schließlich",
+        # ── GDPR / cookies / bannières de consentement ── (bruit majeur)
+        "partner", "partners", "zwecke", "zweck", "zwecken",
+        "einwilligen", "einwilligung", "einwilligungen",
+        "einwilligst", "einwillige",
+        "speicherung", "gespeichert", "speichern",
+        "werbung", "werbezwecke", "werbezwecken",
+        "anzeige", "anzeigen",
+        "cookie", "cookies", "cookieeinstellungen",
+        "tracking", "tracker", "tracken",
+        "consent", "zustimmung", "zustimmen", "zustimmst",
+        "datenschutz", "datenschutzerklärung", "datenschutzhinweis",
+        "datenschutzhinweise", "datenschutzbestimmungen",
+        "impressum", "imprint", "rechtliche",
+        "nutzungsbedingungen", "nutzungshinweise",
+        "ablehnen", "ablehnung", "akzeptieren", "akzeptiere",
+        "personalisiert", "personalisierte", "personalisierten",
+        "verhaltensbasiert", "verhaltensbasierte",
+        "notwendige", "notwendigen", "technische", "technischen",
+        "datenverarbeitung", "verarbeitung", "verarbeitungen",
+        "drittanbieter", "drittpartner", "drittanbiete",
+        "einstellungen", "einstellung", "präferenzen",
+        "zwecken", "verarbeitet", "weitergegeben",
+        "gespeicherte", "gespeicherten",
+        # Navigation / UI générique
+        "menü", "navigation", "klicken", "klicke",
+        "klickt", "newsletter", "abonnieren", "abonnement",
+        "registrieren", "registrierung", "login", "logout",
+        "anmelden", "abmelden", "passwort", "kontakt",
+        "seite", "seiten", "webseite", "website",
+        "inhalt", "inhalte", "inhalten",
+        # Anglais courant (pages bilingues)
+        "the", "and", "for", "with", "this", "that", "from",
+        "have", "has", "are", "were", "will", "been", "their",
+        "they", "them", "these", "those", "your", "our", "more",
+        "also", "which", "about", "into", "some", "such", "each",
+        "than", "then", "when", "where", "there", "here", "what",
+        "who", "how", "can", "may", "must", "should", "would",
+        "could", "shall", "please", "click", "read", "use",
+        "used", "using", "provide", "provided",
+        "products", "product", "services", "service",
+        "page", "pages", "site", "link", "links",
+        "google", "facebook", "twitter", "linkedin", "youtube",
+        "details", "information", "informationen", "detail",
+        "contact", "about", "home", "back", "next",
+        # Temporel générique
+        "tage", "tag", "monat", "monate", "monaten", "jahr",
+        "jahre", "jahren", "stunden", "stunde",
+        "minuten", "minute", "sekunde",
+        "erste", "ersten", "zweite", "zweiten",
+        "andere", "anderen", "neue", "neuen", "neuer", "neuem",
+        "letzten", "letzter", "letzte", "nächste", "nächsten",
+        "weitere", "weiteren", "wenige", "wenigen", "weniger",
+        # Mois
+        "januar", "februar", "märz", "april", "juni",
         "juli", "august", "september", "oktober", "november", "dezember",
-        "2024", "2025", "2026", "1", "2", "3", "4", "5", "6", "7", "8",
+        # Fragments URL / technique
+        "https", "http", "www", "html", "php", "pdf", "htm",
+        # Chiffres
+        "2020", "2021", "2022", "2023", "2024", "2025", "2026",
     }
+
+    # Marqueurs forts de consentement RGPD → filtre les paragraphes de bruit
+    _CONSENT_MARKERS = {
+        "cookie", "cookies", "einwilligen", "einwilligung", "zustimmung",
+        "datenschutz", "tracking", "consent", "werbung", "zwecke",
+        "impressum", "nutzungsbedingungen",
+    }
+
+    def _clean_text_for_analysis(raw: str) -> str:
+        """Supprime les paragraphes dominés par du texte RGPD/cookie."""
+        import re as _re
+        cleaned = []
+        for para in _re.split(r'\n{2,}|\r\n', raw):
+            words_in = _re.findall(r'\b\w+\b', para.lower())
+            if not words_in:
+                continue
+            # Filtre si > 20 % des mots sont des marqueurs consentement
+            noise_ratio = sum(1 for w in words_in if w in _CONSENT_MARKERS) / len(words_in)
+            if noise_ratio < 0.20:
+                cleaned.append(para)
+        return " ".join(cleaned)
 
     def count_words_from_text(text: str, top_n: int = 60) -> list[tuple[str, int]]:
         import re
         from collections import Counter
-        words = re.findall(r'\b[a-zA-ZäöüÄÖÜß]{4,}\b', text.lower())
-        words = [w for w in words if w not in DE_STOPWORDS and len(w) > 3]
-        return Counter(words).most_common(top_n)
+        cleaned = _clean_text_for_analysis(text)
+        # Mots d'au moins 5 caractères (filtre les mots courts sans sens)
+        words = re.findall(r'\b[a-zA-ZäöüÄÖÜß]{5,}\b', cleaned.lower())
+        words = [w for w in words if w not in DE_STOPWORDS]
+        # Fréquence minimale de 3 pour écarter le bruit résiduel
+        counter = Counter(words)
+        return [(w, c) for w, c in counter.most_common(top_n) if c >= 3]
 
     def translate_word(word: str) -> str:
-        """Traduit un mot allemand en français via dictionnaire."""
         return DE_FR_DICT.get(word.lower(), word)
 
     # Sélection des secteurs à analyser
@@ -793,6 +1015,93 @@ elif page == "📰 Analyse Presse & Légal":
 
             # Concaténer tous les textes
             full_text = " ".join(df_texts["contenu_text"].dropna().tolist())
+            full_text_lower = full_text.lower()
+
+            # ── Mots cibles : comptage ciblé des 4 thèmes prioritaires ──────────
+            import re as _re
+            st.markdown("---")
+            st.subheader("🎯 Thèmes cibles prioritaires")
+
+            _TARGET_PATTERNS = {
+                "💻 Digitalisation": [
+                    r"digital\w*", r"digitalisier\w*", r"fintech\w*",
+                    r"regtech\w*", r"automatisier\w*", r"plattform\w*",
+                    r"künstlich\w*",
+                ],
+                "🏗️ Construction": [
+                    r"wohnungsbau\w*", r"baugewerbe\w*", r"bauwirtschaft\w*",
+                    r"neubau\w*", r"hochbau\w*", r"tiefbau\w*",
+                    r"gebäude\w*", r"sanierung\w*", r"renovier\w*",
+                    r"immobilienbau\w*", r"bauprojekt\w*",
+                ],
+                "⚔️ Armement / Défense": [
+                    r"rüstung\w*", r"aufrüstung\w*", r"bundeswehr\w*",
+                    r"verteidigu\w*", r"sondervermögen\w*",
+                    r"militär\w*", r"wehretat\w*", r"wehrhaushalt\w*",
+                    r"nato\b", r"geopolit\w*", r"sanktionen?\b",
+                ],
+                "⚡ Efficacité énergétique": [
+                    r"energieeffizienz\w*", r"energieeffizient\w*",
+                    r"energiesparen\w*", r"energiewende\w*",
+                    r"erneuerbar\w*", r"photovoltaik\w*",
+                    r"windenergie\w*", r"dekarbonisier\w*",
+                    r"klimaneutral\w*", r"wasserstoff\w*",
+                    r"wärmepumpe\w*", r"energieverbrauch\w*",
+                ],
+            }
+
+            _target_counts = {}
+            _target_details = {}
+            for theme, patterns in _TARGET_PATTERNS.items():
+                hits = {}
+                for pat in patterns:
+                    matches = _re.findall(pat, full_text_lower)
+                    for m in matches:
+                        hits[m] = hits.get(m, 0) + 1
+                total = sum(hits.values())
+                _target_counts[theme] = total
+                _target_details[theme] = sorted(hits.items(), key=lambda x: -x[1])[:10]
+
+            # KPI cards
+            cols_t = st.columns(4)
+            _theme_colors = {
+                "💻 Digitalisation":       ("🟦", "#1565C0"),
+                "🏗️ Construction":         ("🟧", "#E65100"),
+                "⚔️ Armement / Défense":   ("🟥", "#B71C1C"),
+                "⚡ Efficacité énergétique": ("🟩", "#1B5E20"),
+            }
+            for col, (theme, count) in zip(cols_t, _target_counts.items()):
+                col.metric(theme, f"{count:,} occ.")
+
+            # Graphe comparatif + détails par thème
+            _tc_df = pd.DataFrame(
+                list(_target_counts.items()), columns=["Thème", "Occurrences"]
+            )
+            fig_targets = px.bar(
+                _tc_df.sort_values("Occurrences", ascending=True),
+                x="Occurrences", y="Thème", orientation="h",
+                color="Thème",
+                color_discrete_map={t: c[1] for t, c in _theme_colors.items()},
+                title="Nombre de mentions par thème cible",
+            )
+            fig_targets.update_layout(height=280, showlegend=False)
+            st.plotly_chart(fig_targets, use_container_width=True)
+
+            # Détail des termes les plus fréquents par thème
+            with st.expander("🔍 Détail des termes trouvés par thème cible", expanded=False):
+                for theme, top_terms in _target_details.items():
+                    if top_terms:
+                        st.markdown(f"**{theme}**")
+                        terms_str = "  •  ".join(
+                            f"`{w}` {n}×" for w, n in top_terms
+                        )
+                        st.markdown(terms_str)
+                    else:
+                        st.markdown(f"**{theme}** — aucune mention trouvée")
+
+            st.markdown("---")
+            st.subheader("📊 Analyse fréquentielle générale")
+
             word_counts = count_words_from_text(full_text, top_n=top_n_words)
 
             if not word_counts:
