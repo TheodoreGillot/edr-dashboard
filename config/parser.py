@@ -34,6 +34,12 @@ def parse_links_file(filepath: Path = LINKS_FILE) -> list[dict]:
             current_sector = int(sector_header.group(1))
             continue
 
+        # Détection "CATÉGORIE N — NOM" → extraire le nom uniquement
+        cat_match = re.match(r"^CAT[ÉE]GORIE\s+\d+\s*[—\-]+\s*(.+)$", line, re.IGNORECASE)
+        if cat_match and "http" not in line:
+            current_subcategory = cat_match.group(1).strip()
+            continue
+
         # Détection sous-catégorie (lignes en MAJUSCULES avec —)
         if re.match(r"^[A-ZÀÉÈÊËÎÏÔÙÛÜÇ\s&/—\-\(\)\.]{10,}$", line) and "http" not in line:
             current_subcategory = line.strip("_ ").strip()

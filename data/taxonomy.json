@@ -754,7 +754,7 @@
         "description": "Position EFAMA sur RIS",
         "type_source": "donnees_marche",
         "nature_technique": "html_statique",
-        "priorite": "medium",
+        "priorite": "high",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -777,6 +777,104 @@
         "url": "https://www.institutional-money.com/magazin/regulierung/retail-investment-strategy",
         "description": "Analyse RIS institutionnel",
         "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      }
+    ],
+    "BANQUES CENTRALES & DONNÉES MACRO COMPLÉMENTAIRES": [
+      {
+        "url": "https://www.bundesbank.de/de/statistiken/banken-und-andere-finanzielle-institute/investmentfonds",
+        "description": "Investmentfonds stats Bundesbank",
+        "type_source": "donnees_marche",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.bundesbank.de/de/aufgaben/themen/monatsbericht",
+        "description": "Monatsbericht Bundesbank macro",
+        "type_source": "donnees_marche",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.bundesbank.de/de/statistiken/konjunktur-und-preise/finanzierungsrechnung",
+        "description": "Finanzierungsrechnung Bundesbank",
+        "type_source": "donnees_marche",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.destatis.de/DE/Themen/Wirtschaft/Volkswirtschaftliche-Gesamtrechnungen-Inlandsprodukt",
+        "description": "PIB Allemagne Destatis",
+        "type_source": "donnees_marche",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.destatis.de/DE/Themen/Arbeit/Arbeitsmarkt/Beschaeftigung",
+        "description": "Emploi Allemagne Destatis",
+        "type_source": "donnees_marche",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.eba.europa.eu/risk-analysis-and-data/risk-dashboard",
+        "description": "EBA risques financiers EU",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.bafin.de/DE/Aufsicht/Fondsaufsicht/Regulierung/regulierung_node.html",
+        "description": "BaFin régulations fonds 2026",
+        "type_source": "regulateur",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.esma.europa.eu/press-news/esma-news/esma-finalises-technical-standards-under-eltif-regulation",
+        "description": "ESMA ELTIF tech standards",
+        "type_source": "regulateur",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.esma.europa.eu/press-news/esma-news/esma-publishes-annual-statistical-report-ucits-and-aifs",
+        "description": "ESMA rapport annuel fonds EU",
+        "type_source": "regulateur",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R2631",
+        "description": "CSDDD texte officiel",
+        "type_source": "regulateur",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.bafin.de/DE/Aufsicht/Fondsaufsicht/Regulierung/AIFMD2/aifmd2_node.html",
+        "description": "AIFMD2 BaFin",
+        "type_source": "regulateur",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.esma.europa.eu/press-news/esma-news/review-aifmd",
+        "description": "AIFMD2 ESMA review",
+        "type_source": "regulateur",
         "nature_technique": "html_statique",
         "priorite": "high",
         "methode_scraping": "requests_bs4"
@@ -960,7 +1058,7 @@
         "description": "Rapport AM européen EFAMA",
         "type_source": "donnees_marche",
         "nature_technique": "html_statique",
-        "priorite": "medium",
+        "priorite": "high",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -968,7 +1066,7 @@
         "description": "Rapport EFAMA 2024 PDF",
         "type_source": "donnees_marche",
         "nature_technique": "pdf",
-        "priorite": "medium",
+        "priorite": "high",
         "methode_scraping": "pdf_parser"
       },
       {
@@ -1146,7 +1244,7 @@
         "description": "Actualité ETF Allemagne",
         "type_source": "presse",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -2359,6 +2457,72 @@
         "priorite": "medium",
         "methode_scraping": "requests_bs4"
       }
+    ],
+    "DONNÉES MARCHÉS COMPLÉMENTAIRES": [
+      {
+        "url": "https://www.bvi.de/statistik/fondsvermoegen",
+        "description": "Fondsvermögen mensuel BVI",
+        "type_source": "donnees_marche",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.bvi.de/statistik/fondsabsatz",
+        "description": "Fondsabsatz mensuel BVI",
+        "type_source": "donnees_marche",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.bvi.de/statistik/etf-statistik",
+        "description": "ETF stats BVI",
+        "type_source": "donnees_marche",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.bvi.de/statistik/sparplaene",
+        "description": "Sparplans stats BVI",
+        "type_source": "donnees_marche",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.efama.org/statistics/industry-facts",
+        "description": "Industry facts EFAMA mensuel",
+        "type_source": "donnees_marche",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.efama.org/statistics/quarterly-statistical-release",
+        "description": "Stats trimestrielles EFAMA",
+        "type_source": "donnees_marche",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://trackinsight.com/en/flow-monitor/europe",
+        "description": "Flux ETF Europe Trackinsight",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.boerse-frankfurt.de/marktdaten/etfs",
+        "description": "ETF Frankfurt Börse données",
+        "type_source": "donnees_marche",
+        "nature_technique": "dynamique_js",
+        "priorite": "low",
+        "methode_scraping": "playwright"
+      }
     ]
   },
   "3 — Produits Financiers Déjà en Place": {
@@ -2522,7 +2686,7 @@
         "description": "Base données fonds FWW",
         "type_source": "plateforme",
         "nature_technique": "dynamique_js",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "playwright"
       },
       {
@@ -2530,7 +2694,7 @@
         "description": "Top listes FWW",
         "type_source": "plateforme",
         "nature_technique": "dynamique_js",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "playwright"
       },
       {
@@ -2594,7 +2758,7 @@
         "description": "Classements Fundresearch",
         "type_source": "presse",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -2602,7 +2766,7 @@
         "description": "Flux nets Fundresearch",
         "type_source": "presse",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -2748,7 +2912,7 @@
         "description": "Fonds actions Fundresearch",
         "type_source": "presse",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -2830,7 +2994,7 @@
         "description": "Fonds small caps Fundresearch",
         "type_source": "presse",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -2992,7 +3156,7 @@
         "description": "Fonds obligataires Fundresearch",
         "type_source": "presse",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -3122,7 +3286,7 @@
         "description": "HY Fundresearch classement",
         "type_source": "presse",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -3236,7 +3400,7 @@
         "description": "Thématiques Fundresearch",
         "type_source": "presse",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -3448,7 +3612,7 @@
         "description": "ESG Fundresearch",
         "type_source": "presse",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -3570,7 +3734,7 @@
         "description": "Mischfonds Fundresearch",
         "type_source": "presse",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -3632,9 +3796,9 @@
       {
         "url": "https://www.eltif.com",
         "description": "Portail actualité ELTIF",
-        "type_source": "autre",
+        "type_source": "non_cote",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "high",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -3704,15 +3868,15 @@
       {
         "url": "https://www.moonfare.com/de",
         "description": "Moonfare PE retail DE",
-        "type_source": "autre",
+        "type_source": "non_cote",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "requests_bs4"
       },
       {
         "url": "https://www.liqid.de/private-equity",
         "description": "Liqid PE retail DE",
-        "type_source": "autre",
+        "type_source": "non_cote",
         "nature_technique": "html_statique",
         "priorite": "low",
         "methode_scraping": "requests_bs4"
@@ -3720,7 +3884,7 @@
       {
         "url": "https://www.finvia.de",
         "description": "Finvia family office + PE DE",
-        "type_source": "autre",
+        "type_source": "non_cote",
         "nature_technique": "html_statique",
         "priorite": "low",
         "methode_scraping": "requests_bs4"
@@ -3728,17 +3892,17 @@
       {
         "url": "https://www.bvk.de/statistiken",
         "description": "Stats private equity DE (BVK)",
-        "type_source": "autre",
+        "type_source": "non_cote",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "high",
         "methode_scraping": "requests_bs4"
       },
       {
         "url": "https://www.invest-europe.eu/data/data-and-research",
         "description": "Invest Europe PE données",
-        "type_source": "autre",
+        "type_source": "non_cote",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "high",
         "methode_scraping": "requests_bs4"
       }
     ],
@@ -3844,7 +4008,7 @@
         "description": "EdRAM sur FWW",
         "type_source": "plateforme",
         "nature_technique": "dynamique_js",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "playwright"
       },
       {
@@ -5318,7 +5482,7 @@
         "description": "Comparateur coûts FWW",
         "type_source": "plateforme",
         "nature_technique": "dynamique_js",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "playwright"
       },
       {
@@ -5359,6 +5523,120 @@
         "type_source": "donnees_marche",
         "nature_technique": "html_statique",
         "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      }
+    ],
+    "ASSET MANAGERS LOCAUX SUPPLÉMENTAIRES": [
+      {
+        "url": "https://www.sauren.de",
+        "description": "Sauren Fonds-Research DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.apo-am.de",
+        "description": "Apo Asset Management DE (bancaire)",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.hauck-aufhaeuser.com/de/investment-services",
+        "description": "Hauck Aufhäuser gestion",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.lampe-am.de",
+        "description": "Lampe Asset Management DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.warburg-invest.com",
+        "description": "Warburg Invest DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.hsbc-trinkaus.de",
+        "description": "HSBC Trinkaus & Burkhardt DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.meag.com/de",
+        "description": "MEAG Munich Ergo DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.dz-privatbank.de",
+        "description": "DZ Privatbank gestion DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.helaba-invest.de",
+        "description": "Helaba Invest DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.lbbw-am.de",
+        "description": "LBBW Asset Management DE",
+        "type_source": "asset_manager",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.bayerninvest.de",
+        "description": "BayernInvest DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.metzler.com/de/investments",
+        "description": "Metzler Asset Management DE",
+        "type_source": "asset_manager",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.iqq.de",
+        "description": "IQQ capital management DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.pangaea.de",
+        "description": "Pangaea Asset Management DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
         "methode_scraping": "requests_bs4"
       }
     ]
@@ -7230,7 +7508,7 @@
         "description": "Distribution cross-border EFAMA",
         "type_source": "donnees_marche",
         "nature_technique": "html_statique",
-        "priorite": "medium",
+        "priorite": "high",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -7386,6 +7664,112 @@
         "nature_technique": "dynamique_js",
         "priorite": "low",
         "methode_scraping": "playwright"
+      }
+    ],
+    "ASSET MANAGERS INTERNATIONAUX SUPPLÉMENTAIRES": [
+      {
+        "url": "https://www.natixis-im.com/de",
+        "description": "Natixis IM Allemagne",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.carmignac.com/de_DE",
+        "description": "Carmignac DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.oddo-bhf.com/de/asset-management",
+        "description": "ODDO BHF AM DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.financiere-de-lechiquier.de",
+        "description": "FdE Allemagne (French AM)",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.robeco.com/de-de",
+        "description": "Robeco Allemagne",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.nordea.com/de-de/business/asset-management",
+        "description": "Nordea AM DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.swedbank.de/assetmanagement",
+        "description": "Swedbank AM DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.aberdeen.de",
+        "description": "abrdn Allemagne",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.lazardassetmanagement.com/de",
+        "description": "Lazard AM DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.wellington.com/de",
+        "description": "Wellington Management DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.guggenheim-investments.de",
+        "description": "Guggenheim Investments DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.columbia-threadneedle.de",
+        "description": "Columbia Threadneedle DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.principal.de",
+        "description": "Principal AM DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
       }
     ]
   },
@@ -9063,6 +9447,88 @@
         "priorite": "low",
         "methode_scraping": "requests_bs4"
       }
+    ],
+    "ASSET MANAGERS INTERNATIONAUX SUPPLÉMENTAIRES": [
+      {
+        "url": "https://www.bundesregierung.de/breg-de/themen/sondervermogen-infrastruktur",
+        "description": "Sondervermögen infra officiel",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.bundesfinanzministerium.de/Content/DE/Standardartikel/Themen/Wirtschaft/sondervermogen-bundeswehr.html",
+        "description": "Sondervermögen Bundeswehr",
+        "type_source": "regulateur",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.kfw.de/KfW-Konzern/Newsroom/Aktuelles/KfW-Research",
+        "description": "KfW Research macro",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.ifo.de/konjunktur/ifo-geschaeftsklimaindex",
+        "description": "Ifo Geschäftsklimaindex",
+        "type_source": "recherche",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.zew.de/konjunktur/zew-konjunkturerwartungen",
+        "description": "ZEW Konjunkturerwartungen",
+        "type_source": "recherche",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.diw.de/de/diw_01.c.615551.de/forschung.html",
+        "description": "DIW Forschung économie",
+        "type_source": "recherche",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.sachverstaendigenrat-wirtschaft.de/jahresgutachten.html",
+        "description": "SVR Jahresgutachten",
+        "type_source": "recherche",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.iw-koeln.de/studien",
+        "description": "IW Köln études économiques",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.bertelsmann-stiftung.de/themen/wirtschaft",
+        "description": "Bertelsmann économie DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.boeckler.de/de/boeckler-impuls.htm",
+        "description": "Böckler Institut travaux économiques",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      }
     ]
   },
   "7 — Presse & Classements de Fonds": {
@@ -10034,7 +10500,7 @@
         "description": "Site principal Fundresearch",
         "type_source": "presse",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -10042,7 +10508,7 @@
         "description": "Classements Fundresearch",
         "type_source": "presse",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -10050,7 +10516,7 @@
         "description": "Flux nets Fundresearch",
         "type_source": "presse",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -10058,7 +10524,7 @@
         "description": "Nouveaux fonds FR",
         "type_source": "presse",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -10066,7 +10532,7 @@
         "description": "Fonds actions FR",
         "type_source": "presse",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -10074,7 +10540,7 @@
         "description": "Small caps FR",
         "type_source": "presse",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -10082,7 +10548,7 @@
         "description": "Fonds obligataires FR",
         "type_source": "presse",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -10090,7 +10556,7 @@
         "description": "High yield FR",
         "type_source": "presse",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -10098,7 +10564,7 @@
         "description": "Mischfonds FR",
         "type_source": "presse",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -10106,7 +10572,7 @@
         "description": "Thématiques FR",
         "type_source": "presse",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -10114,7 +10580,7 @@
         "description": "ESG FR",
         "type_source": "presse",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -10122,7 +10588,7 @@
         "description": "Sociétés gestion FR",
         "type_source": "presse",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -10130,7 +10596,7 @@
         "description": "Commentaires marché FR",
         "type_source": "presse",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -10138,7 +10604,7 @@
         "description": "Études FR",
         "type_source": "presse",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -10146,7 +10612,7 @@
         "description": "Interviews gérants FR",
         "type_source": "presse",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "requests_bs4"
       }
     ],
@@ -11114,7 +11580,7 @@
         "description": "EdRAM dans Fundresearch",
         "type_source": "presse",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -11293,6 +11759,112 @@
         "priorite": "low",
         "methode_scraping": "requests_bs4"
       }
+    ],
+    "PRESSE SUPPLÉMENTAIRE & NEWSLETTERS": [
+      {
+        "url": "https://www.fundresearch.de",
+        "description": "FundResearch analyse fonds DE",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "medium",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.fundresearch.de/Investmentfonds/Ranglisten/Top-Rendite",
+        "description": "Ranglisten FundResearch",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "medium",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.fundresearch.de/Nachrichten",
+        "description": "Actualités FundResearch",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "medium",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.citywire.com/germany",
+        "description": "Citywire Germany EN",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.funds-europe.com/country/germany",
+        "description": "Funds Europe Allemagne",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.ft.com/asset-management/germany",
+        "description": "FT Asset Management DE",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.reuters.com/finance/funds/germany",
+        "description": "Reuters fonds Allemagne",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.bloomberg.com/europe/germany",
+        "description": "Bloomberg Allemagne",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.etfstream.com/region/germany",
+        "description": "ETFStream Allemagne",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.investmentnews.de",
+        "description": "InvestmentNews DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.private-banking-magazin.de",
+        "description": "Private Banking Magazin DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.procontra-online.de/finanzen",
+        "description": "ProContra assurance-vie fonds DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www://versicherungsbote.de/news/investmentfonds",
+        "description": "Versicherungsbote fonds DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      }
     ]
   },
   "8 — Agrégateurs de Données": {
@@ -11358,7 +11930,7 @@
         "description": "EFAMA rapport AM — benchmark parts marché pan-européen",
         "type_source": "donnees_marche",
         "nature_technique": "html_statique",
-        "priorite": "medium",
+        "priorite": "high",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -11374,7 +11946,7 @@
         "description": "FWW base données — base fonds allemande B2B la plus complète",
         "type_source": "plateforme",
         "nature_technique": "dynamique_js",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "playwright"
       }
     ],
@@ -11916,7 +12488,7 @@
         "description": "Site principal FWW",
         "type_source": "plateforme",
         "nature_technique": "dynamique_js",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "playwright"
       },
       {
@@ -11924,7 +12496,7 @@
         "description": "Base données fonds complète",
         "type_source": "plateforme",
         "nature_technique": "dynamique_js",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "playwright"
       },
       {
@@ -11932,7 +12504,7 @@
         "description": "Top listes FWW",
         "type_source": "plateforme",
         "nature_technique": "dynamique_js",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "playwright"
       },
       {
@@ -11940,7 +12512,7 @@
         "description": "Top flux entrants",
         "type_source": "plateforme",
         "nature_technique": "dynamique_js",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "playwright"
       },
       {
@@ -11948,7 +12520,7 @@
         "description": "Top flux sortants",
         "type_source": "plateforme",
         "nature_technique": "dynamique_js",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "playwright"
       },
       {
@@ -11956,7 +12528,7 @@
         "description": "Top performance",
         "type_source": "plateforme",
         "nature_technique": "dynamique_js",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "playwright"
       },
       {
@@ -11964,7 +12536,7 @@
         "description": "Comparateur coûts TER",
         "type_source": "plateforme",
         "nature_technique": "dynamique_js",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "playwright"
       },
       {
@@ -11972,7 +12544,7 @@
         "description": "Catégories fonds FWW",
         "type_source": "plateforme",
         "nature_technique": "dynamique_js",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "playwright"
       },
       {
@@ -11980,7 +12552,7 @@
         "description": "Sociétés gestion FWW",
         "type_source": "plateforme",
         "nature_technique": "dynamique_js",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "playwright"
       },
       {
@@ -11988,7 +12560,7 @@
         "description": "Actualité marché FWW",
         "type_source": "plateforme",
         "nature_technique": "dynamique_js",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "playwright"
       },
       {
@@ -11996,7 +12568,7 @@
         "description": "FWW Fund Awards",
         "type_source": "plateforme",
         "nature_technique": "dynamique_js",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "playwright"
       },
       {
@@ -12004,7 +12576,7 @@
         "description": "FWW Awards 2026",
         "type_source": "plateforme",
         "nature_technique": "dynamique_js",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "playwright"
       },
       {
@@ -12012,7 +12584,7 @@
         "description": "EdRAM sur FWW",
         "type_source": "plateforme",
         "nature_technique": "dynamique_js",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "playwright"
       },
       {
@@ -12020,7 +12592,7 @@
         "description": "Données marché FWW",
         "type_source": "plateforme",
         "nature_technique": "dynamique_js",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "playwright"
       },
       {
@@ -12028,7 +12600,7 @@
         "description": "Statistiques marché FWW",
         "type_source": "plateforme",
         "nature_technique": "dynamique_js",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "playwright"
       }
     ],
@@ -12306,7 +12878,7 @@
         "description": "Hub statistiques EFAMA",
         "type_source": "donnees_marche",
         "nature_technique": "html_statique",
-        "priorite": "medium",
+        "priorite": "high",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -12314,7 +12886,7 @@
         "description": "Rapport AM Europe annuel",
         "type_source": "donnees_marche",
         "nature_technique": "html_statique",
-        "priorite": "medium",
+        "priorite": "high",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -12322,7 +12894,7 @@
         "description": "Rapport AM 2025",
         "type_source": "donnees_marche",
         "nature_technique": "html_statique",
-        "priorite": "medium",
+        "priorite": "high",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -12330,7 +12902,7 @@
         "description": "Fact Book EFAMA",
         "type_source": "donnees_marche",
         "nature_technique": "html_statique",
-        "priorite": "medium",
+        "priorite": "high",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -12338,7 +12910,7 @@
         "description": "Stats fonds Europe",
         "type_source": "donnees_marche",
         "nature_technique": "html_statique",
-        "priorite": "medium",
+        "priorite": "high",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -12346,7 +12918,7 @@
         "description": "Release trimestriel",
         "type_source": "donnees_marche",
         "nature_technique": "html_statique",
-        "priorite": "medium",
+        "priorite": "high",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -12354,7 +12926,7 @@
         "description": "Release mensuel",
         "type_source": "donnees_marche",
         "nature_technique": "html_statique",
-        "priorite": "medium",
+        "priorite": "high",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -12362,7 +12934,7 @@
         "description": "Distribution cross-border",
         "type_source": "donnees_marche",
         "nature_technique": "html_statique",
-        "priorite": "medium",
+        "priorite": "high",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -12370,7 +12942,7 @@
         "description": "Part marché DE EFAMA",
         "type_source": "donnees_marche",
         "nature_technique": "html_statique",
-        "priorite": "medium",
+        "priorite": "high",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -12378,7 +12950,7 @@
         "description": "Stats ETF Europe",
         "type_source": "donnees_marche",
         "nature_technique": "html_statique",
-        "priorite": "medium",
+        "priorite": "high",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -12386,7 +12958,7 @@
         "description": "Stats ESG EU EFAMA",
         "type_source": "donnees_marche",
         "nature_technique": "html_statique",
-        "priorite": "medium",
+        "priorite": "high",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -12394,7 +12966,7 @@
         "description": "Investissement retail EU",
         "type_source": "donnees_marche",
         "nature_technique": "html_statique",
-        "priorite": "medium",
+        "priorite": "high",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -12402,7 +12974,7 @@
         "description": "Communiqués presse EFAMA",
         "type_source": "donnees_marche",
         "nature_technique": "html_statique",
-        "priorite": "medium",
+        "priorite": "high",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -12410,7 +12982,7 @@
         "description": "Publications recherche EFAMA",
         "type_source": "donnees_marche",
         "nature_technique": "html_statique",
-        "priorite": "medium",
+        "priorite": "high",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -12418,7 +12990,7 @@
         "description": "AM en Europe rapport",
         "type_source": "donnees_marche",
         "nature_technique": "html_statique",
-        "priorite": "medium",
+        "priorite": "high",
         "methode_scraping": "requests_bs4"
       }
     ],
@@ -13096,7 +13668,7 @@
         "description": "Comparateur coûts FWW",
         "type_source": "plateforme",
         "nature_technique": "dynamique_js",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "playwright"
       },
       {
@@ -13152,7 +13724,7 @@
         "description": "Frais fonds EU EFAMA",
         "type_source": "donnees_marche",
         "nature_technique": "html_statique",
-        "priorite": "medium",
+        "priorite": "high",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -13258,7 +13830,7 @@
         "description": "Stats ESG EFAMA",
         "type_source": "donnees_marche",
         "nature_technique": "html_statique",
-        "priorite": "medium",
+        "priorite": "high",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -13282,57 +13854,57 @@
       {
         "url": "https://www.bvk.de/statistiken",
         "description": "Stats private equity BVK DE",
-        "type_source": "autre",
+        "type_source": "non_cote",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "high",
         "methode_scraping": "requests_bs4"
       },
       {
         "url": "https://www.bvk.de/statistiken/jahresstatistik",
         "description": "Jahresstatistik PE DE",
-        "type_source": "autre",
+        "type_source": "non_cote",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "high",
         "methode_scraping": "requests_bs4"
       },
       {
         "url": "https://www.invest-europe.eu/data/data-and-research",
         "description": "Invest Europe PE données",
-        "type_source": "autre",
+        "type_source": "non_cote",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "high",
         "methode_scraping": "requests_bs4"
       },
       {
         "url": "https://www.invest-europe.eu/data/data-and-research/european-private-equity-activity",
         "description": "PE activity EU",
-        "type_source": "autre",
+        "type_source": "non_cote",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "high",
         "methode_scraping": "requests_bs4"
       },
       {
         "url": "https://www.preqin.com/data/germany",
         "description": "Preqin private assets DE",
-        "type_source": "autre",
+        "type_source": "non_cote",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "requests_bs4"
       },
       {
         "url": "https://www.pitchbook.com/european-pe",
         "description": "PitchBook PE Europe",
-        "type_source": "autre",
+        "type_source": "non_cote",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "requests_bs4"
       },
       {
         "url": "https://www.eltif.com/statistics",
         "description": "Stats ELTIF 2.0",
-        "type_source": "autre",
+        "type_source": "non_cote",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "high",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -13354,15 +13926,15 @@
       {
         "url": "https://www.moonfare.com/de/insights/private-equity-statistics",
         "description": "Stats PE retail Moonfare",
-        "type_source": "autre",
+        "type_source": "non_cote",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "requests_bs4"
       },
       {
         "url": "https://www.liqid.de/blog/private-equity-markt-deutschland",
         "description": "PE marché DE Liqid",
-        "type_source": "autre",
+        "type_source": "non_cote",
         "nature_technique": "html_statique",
         "priorite": "low",
         "methode_scraping": "requests_bs4"
@@ -13464,6 +14036,72 @@
         "nature_technique": "html_statique",
         "priorite": "medium",
         "methode_scraping": "requests_bs4"
+      }
+    ],
+    "AGRÉGATEURS DONNÉES SUPPLÉMENTAIRES": [
+      {
+        "url": "https://www.fww.de/fondsdaten",
+        "description": "FWW fondsdaten DE",
+        "type_source": "plateforme",
+        "nature_technique": "dynamique_js",
+        "priorite": "medium",
+        "methode_scraping": "playwright"
+      },
+      {
+        "url": "https://www.fundinfo.com/de/search",
+        "description": "Fundinfo search fonds DE",
+        "type_source": "plateforme",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.scope-explorer.com",
+        "description": "Scope Explorer notes fonds",
+        "type_source": "plateforme",
+        "nature_technique": "dynamique_js",
+        "priorite": "high",
+        "methode_scraping": "playwright"
+      },
+      {
+        "url": "https://www.scope-fonds.de/ratings",
+        "description": "Scope ratings fonds DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "medium",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.feri.de/fonds/ratings",
+        "description": "FERI ratings fonds DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.srri.eu/germany",
+        "description": "SRRI risk profils DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.morningstar.de/de/research/category-performance",
+        "description": "Catégories perf Morningstar",
+        "type_source": "plateforme",
+        "nature_technique": "dynamique_js",
+        "priorite": "high",
+        "methode_scraping": "playwright"
+      },
+      {
+        "url": "https://www.morningstar.de/de/research/fund-performance-reports",
+        "description": "Reports perf fonds",
+        "type_source": "plateforme",
+        "nature_technique": "dynamique_js",
+        "priorite": "high",
+        "methode_scraping": "playwright"
       }
     ]
   },
@@ -13592,25 +14230,25 @@
       {
         "url": "https://www.eltif.com",
         "description": "Portail actualité ELTIF",
-        "type_source": "autre",
+        "type_source": "non_cote",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "high",
         "methode_scraping": "requests_bs4"
       },
       {
         "url": "https://www.eltif.com/statistics",
         "description": "Stats ELTIF en Europe",
-        "type_source": "autre",
+        "type_source": "non_cote",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "high",
         "methode_scraping": "requests_bs4"
       },
       {
         "url": "https://www.eltif.com/germany",
         "description": "ELTIF marché allemand",
-        "type_source": "autre",
+        "type_source": "non_cote",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "high",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -13704,15 +14342,15 @@
       {
         "url": "https://www.moonfare.com/de/eltif",
         "description": "Moonfare ELTIF retail DE",
-        "type_source": "autre",
+        "type_source": "non_cote",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "requests_bs4"
       },
       {
         "url": "https://www.liqid.de/private-equity/eltif",
         "description": "Liqid ELTIF DE",
-        "type_source": "autre",
+        "type_source": "non_cote",
         "nature_technique": "html_statique",
         "priorite": "low",
         "methode_scraping": "requests_bs4"
@@ -13720,7 +14358,7 @@
       {
         "url": "https://www.finvia.de/eltif",
         "description": "Finvia ELTIF family office",
-        "type_source": "autre",
+        "type_source": "non_cote",
         "nature_technique": "html_statique",
         "priorite": "low",
         "methode_scraping": "requests_bs4"
@@ -13744,25 +14382,25 @@
       {
         "url": "https://www.bvk.de/statistiken",
         "description": "BVK stats private equity DE",
-        "type_source": "autre",
+        "type_source": "non_cote",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "high",
         "methode_scraping": "requests_bs4"
       },
       {
         "url": "https://www.invest-europe.eu/data",
         "description": "Invest Europe PE données EU",
-        "type_source": "autre",
+        "type_source": "non_cote",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "high",
         "methode_scraping": "requests_bs4"
       },
       {
         "url": "https://www.preqin.com/data/germany",
         "description": "Preqin private assets DE",
-        "type_source": "autre",
+        "type_source": "non_cote",
         "nature_technique": "html_statique",
-        "priorite": "low",
+        "priorite": "medium",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -14710,7 +15348,7 @@
         "description": "Stats ESG EU EFAMA",
         "type_source": "donnees_marche",
         "nature_technique": "html_statique",
-        "priorite": "medium",
+        "priorite": "high",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -14960,7 +15598,7 @@
         "description": "Coûts fonds EU EFAMA",
         "type_source": "donnees_marche",
         "nature_technique": "html_statique",
-        "priorite": "medium",
+        "priorite": "high",
         "methode_scraping": "requests_bs4"
       },
       {
@@ -16144,7 +16782,7 @@
       {
         "url": "https://www.liqid.de",
         "description": "Liqid digital wealth DE",
-        "type_source": "autre",
+        "type_source": "non_cote",
         "nature_technique": "html_statique",
         "priorite": "low",
         "methode_scraping": "requests_bs4"
@@ -16152,7 +16790,7 @@
       {
         "url": "https://www.liqid.de/portfolio",
         "description": "Portfolio Liqid",
-        "type_source": "autre",
+        "type_source": "non_cote",
         "nature_technique": "html_statique",
         "priorite": "low",
         "methode_scraping": "requests_bs4"
@@ -16479,6 +17117,2486 @@
         "type_source": "asset_manager",
         "nature_technique": "html_statique",
         "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      }
+    ],
+    "PRODUITS THÉMATIQUES SUPPLÉMENTAIRES": [
+      {
+        "url": "https://www.dasinvestment.com/wasserfonds",
+        "description": "Fonds eau DAS INV",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.dasinvestment.com/rohstoffe-fonds",
+        "description": "Fonds matières premières",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.dasinvestment.com/security-fonds",
+        "description": "Fonds defense/security",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.fondsprofessionell.de/news/maerkte/headline/ruecklagenmarkt-2026",
+        "description": "Marchés épargne 2026 FP",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.institutional-money.com/magazin/investment/megatrends",
+        "description": "Mégatrends институtionnel IM",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.portfolio-institutionell.de/news/megatrends",
+        "description": "Mégatrends portf. inst.",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "medium",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.dws.com/de-de/insights/dws-perspectives/megatrends",
+        "description": "Mégatrends DWS",
+        "type_source": "asset_manager",
+        "nature_technique": "html_statique",
+        "priorite": "medium",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.allianzgi.de/de/insights/megatrends",
+        "description": "Mégatrends AllianzGI",
+        "type_source": "asset_manager",
+        "nature_technique": "html_statique",
+        "priorite": "medium",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.schroders.com/de-de/de/profi/insights/megatrends",
+        "description": "Mégatrends Schroders",
+        "type_source": "asset_manager",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.fondsweb.com/de/ranglisten/fonds/kategorie/themen-wasser",
+        "description": "Eau classement",
+        "type_source": "plateforme",
+        "nature_technique": "dynamique_js",
+        "priorite": "high",
+        "methode_scraping": "playwright"
+      },
+      {
+        "url": "https://www.fondsweb.com/de/ranglisten/fonds/kategorie/themen-erneuerbare-energien",
+        "description": "Énergies ren. classement",
+        "type_source": "plateforme",
+        "nature_technique": "dynamique_js",
+        "priorite": "high",
+        "methode_scraping": "playwright"
+      },
+      {
+        "url": "https://www.fondsweb.com/de/ranglisten/fonds/kategorie/aktien-deutschland",
+        "description": "Actions DE classement",
+        "type_source": "plateforme",
+        "nature_technique": "dynamique_js",
+        "priorite": "high",
+        "methode_scraping": "playwright"
+      },
+      {
+        "url": "https://www.fondsweb.com/de/ranglisten/fonds/kategorie/aktien-europa",
+        "description": "Actions EU classement",
+        "type_source": "plateforme",
+        "nature_technique": "dynamique_js",
+        "priorite": "high",
+        "methode_scraping": "playwright"
+      },
+      {
+        "url": "https://www.group.edram.com/en/about-us/news",
+        "description": "EdRAM news officiel",
+        "type_source": "asset_manager",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.group.edram.com/en/insights",
+        "description": "EdRAM insights",
+        "type_source": "asset_manager",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.group.edram.com/de/fonds",
+        "description": "EdRAM Fonds DE",
+        "type_source": "asset_manager",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      }
+    ]
+  },
+  "10 — Actifs Non Cotés": {
+    "PRIVATE EQUITY": [
+      {
+        "url": "https://www.bvk.de",
+        "description": "BVK — association PE/VC Allemagne, référence absolue",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.bvk.de/statistiken",
+        "description": "Stats PE/VC Allemagne annuelles",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.bvk.de/statistiken/jahresstatistik",
+        "description": "Jahresstatistik PE détaillé",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.bvk.de/statistiken/halbjahresstatistik",
+        "description": "Semestres PE Allemagne",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.bvk.de/statistiken/venture-capital",
+        "description": "Stats VC spécifiques DE",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.bvk.de/presse/pressemitteilungen",
+        "description": "Presse BVK actualité marché",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.bvk.de/publikationen",
+        "description": "Publications études BVK",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.invest-europe.eu/data",
+        "description": "Invest Europe PE données EU",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.invest-europe.eu/data/data-and-research/european-private-equity-activity",
+        "description": "PE activity EU annuel",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.invest-europe.eu/data/data-and-research/benchmarking",
+        "description": "Benchmarks performance PE EU",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.invest-europe.eu/data/germany",
+        "description": "Données PE Allemagne Invest Europe",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.preqin.com/data/germany",
+        "description": "Preqin PE/VC/Infra DE données",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "medium",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.pitchbook.com/european-pe",
+        "description": "PitchBook PE Europe",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "medium",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.mergermarket.com/de",
+        "description": "Mergermarket M&A PE Allemagne",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.kkr.com/businesses/private-equity/europe/germany",
+        "description": "KKR Allemagne PE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.blackstone.com/businesses/private-equity/germany",
+        "description": "Blackstone PE DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.carlyle.com/local-presence/europe/germany",
+        "description": "Carlyle PE DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.cvc.com/de",
+        "description": "CVC Capital Partners DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.apax.com/de",
+        "description": "Apax Partners DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.warburg-pincus.com/de",
+        "description": "Warburg Pincus DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.eurazeo.com/de",
+        "description": "Eurazeo DE (français présent)",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.ardian.com/de",
+        "description": "Ardian DE (français dominant)",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "medium",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.bridgepoint.eu/de",
+        "description": "Bridgepoint DE",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.equistone.eu/de",
+        "description": "Equistone DE mid-market",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.dbag.de/de",
+        "description": "DBAG Deutsche Beteiligungs AG — PE coté DE",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "medium",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.dbag.de/de/investor-relations/berichte",
+        "description": "DBAG rapports annuels",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "medium",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.hannover-finanz.de",
+        "description": "Hannover Finanz PE mid-market DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.nord-holding.de",
+        "description": "Nord Holding PE DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.quadriga-capital.de",
+        "description": "Quadriga Capital PE mid-market",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.pinova-capital.de",
+        "description": "Pinova Capital PE SME DE",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.capiton.de",
+        "description": "Capiton PE mid-market DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.abac.de",
+        "description": "Abac Capital DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.emeram.com",
+        "description": "Emeram Capital Partners DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.afinum.de",
+        "description": "Afinum PE mid-market DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.bregal-unternehmerkapital.de",
+        "description": "Bregal Unternehmerkapital DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.aheim.de",
+        "description": "Aheim Capital DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.hg.co/de",
+        "description": "HgCapital DE (tech PE)",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.investcorp.com/de",
+        "description": "Investcorp DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.handelsblatt.com/finanzen/maerkte/private-equity",
+        "description": "PE Handelsblatt",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.boersen-zeitung.de/investment/private-equity",
+        "description": "PE Börsen-Zeitung",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.manager-magazin.de/finanzen/private-equity",
+        "description": "PE Manager Magazin",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.pe-magazin.de",
+        "description": "PE Magazin — presse spécialisée DE",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.private-equity-forum.de",
+        "description": "PE Forum NRW — réseau PE DE",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.institutional-money.com/magazin/investment/private-equity",
+        "description": "PE institutionnel IM",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.portfolio-institutionell.de/news/private-equity",
+        "description": "PE portf. institutionnel",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "medium",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.dasinvestment.com/private-equity",
+        "description": "PE DAS INVESTMENT",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.fondsprofessionell.de/news/maerkte/headline/private-equity",
+        "description": "PE FONDS professionell",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.finance-magazin.de/deals/private-equity",
+        "description": "PE finance Magazin deals",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.m-und-a.de",
+        "description": "M&A Review PE Allemagne",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.goingpublic.de/private-equity",
+        "description": "Going Public PE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.platow.de/private-equity",
+        "description": "Platow Brief PE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.vc-magazin.de",
+        "description": "VC Magazin — venture capital DE",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      }
+    ],
+    "PRIVATE DEBT / DETTE PRIVÉE": [
+      {
+        "url": "https://www.alt-credit.com/region/germany",
+        "description": "Alt Credit Intelligence DE — référence absolue dette privée",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.loanmarketassociation.com/resources/statistics/german-loan-market",
+        "description": "LMA marché loan DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.afme.eu/Data/Statistical-Data/European-Private-Placements",
+        "description": "AFME placements privés EU",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.buba.de/de/statistiken/banken/kreditstatistik",
+        "description": "Bundesbank stats crédit (contexte)",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.european-direct-lending.com",
+        "description": "European Direct Lending data",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.debtexplained.eu/germany",
+        "description": "Debt Explained marché DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.kfw.de/KfW-Konzern/Newsroom/Aktuelles/KfW-Mittelstandspanel.html",
+        "description": "KfW Mittelstandspanel financement PME",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.bundesbank.de/de/statistiken/banken-und-andere-finanzielle-institute/kreditstatistik",
+        "description": "Stats crédit Bundesbank",
+        "type_source": "donnees_marche",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.eba.europa.eu/risk-analysis-and-data/risk-dashboard",
+        "description": "EBA risques crédit EU",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.esma.europa.eu/press-news/esma-news/private-debt-market-europe",
+        "description": "ESMA rapport dette privée EU",
+        "type_source": "regulateur",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.alcentra.com/de",
+        "description": "Alcentra dette privée DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.axa-im-alts.com/de/private-debt",
+        "description": "AXA IM Alts dette privée DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.amundi-alternatives.com/de/private-debt",
+        "description": "Amundi dette privée DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.bnpparibas-am.com/de/unsere-expertise/alternative-anlagen/private-debt",
+        "description": "BNP PAM private debt DE",
+        "type_source": "asset_manager",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.tikehau-capital.com/de/private-debt",
+        "description": "Tikehau dette privée DE",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "medium",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.intermediate-capital.com/de",
+        "description": "ICG dette privée DE",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.eaglecreekcapital.de",
+        "description": "Eagle Creek Capital dette privée DE",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.creditcorp.de",
+        "description": "CreditCorp DE direct lending",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.golub-capital.com/de",
+        "description": "Golub Capital DE direct lending",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.ares.com/de/strategies/credit/direct-lending",
+        "description": "Ares Direct Lending DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.bluebay.com/de",
+        "description": "BlueBay Asset Mgmt dette privée DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.hayfin.com/de",
+        "description": "Hayfin Capital dette privée DE",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.caissedesdepots.de/en/private-debt-germany",
+        "description": "CDC dette privée DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.pemberton-am.com/de",
+        "description": "Pemberton AM direct lending DE",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.moonfare.com/de/private-credit",
+        "description": "Moonfare private credit retail DE",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "medium",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.deloitte.com/de/de/services/financial-services/private-debt-studie.html",
+        "description": "Deloitte étude private debt DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.pwc.de/de/finanzdienstleistungen/private-debt-markt-deutschland.html",
+        "description": "PwC private debt DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.kpmg.com/de/de/home/themen/2025/private-debt-deutschland.html",
+        "description": "KPMG private debt DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.ey.com/de_de/financial-services/private-debt-report",
+        "description": "EY private debt rapport",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.institutional-money.com/magazin/investment/private-debt",
+        "description": "Private debt IM",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.portfolio-institutionell.de/news/private-debt",
+        "description": "Private debt portf. inst.",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "medium",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.alt-credit.com/publication/germany-direct-lending-report",
+        "description": "Rapport direct lending DE",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.preqin.com/insights/research/reports/private-debt-germany",
+        "description": "Preqin private debt DE",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "medium",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.s-p-global.com/ratings/en/research/articles/germany-private-debt",
+        "description": "S&P private debt DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.moodys.com/researchandratings/market/private-debt-germany",
+        "description": "Moody's private debt DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      }
+    ],
+    "INFRASTRUCTURE PRIVÉE": [
+      {
+        "url": "https://www.bmwk.de/Redaktion/DE/Dossier/infrastruktur-investitionen.html",
+        "description": "BMWK investissements infra DE",
+        "type_source": "regulateur",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.kfw.de/KfW-Konzern/Newsroom/Aktuelles/Pressemitteilungen/infrastruktur.html",
+        "description": "KfW financement infra",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.bundesregierung.de/breg-de/themen/sondervermogen-infrastruktur",
+        "description": "Sondervermögen infra officiel",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.bundesnetzagentur.de/DE/Fachthemen/ElektrizitaetundGas/Investitionen",
+        "description": "Investissements réseau énergie",
+        "type_source": "regulateur",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.autobahn.de/die-autobahn/presse/pressemitteilungen/investitionen",
+        "description": "GmbH Autobahn investissements",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.bmdv.bund.de/DE/Themen/Netzausbau/netzausbau.html",
+        "description": "Plan réseau transport DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.destatis.de/DE/Themen/Wirtschaft/Baugewerbe-Wohnungswesen",
+        "description": "Stats construction infra",
+        "type_source": "donnees_marche",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.eib.org/de/projects/all/germany",
+        "description": "BEI projets infra Allemagne",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.efsi.eu/projects/germany",
+        "description": "EFSI projets EU Allemagne",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.inrev.org/resources/research/quarterly-data/germany",
+        "description": "INREV infra données EU",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.macquarie.com/de/en/solutions/infrastructure.html",
+        "description": "Macquarie infra DE",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "medium",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.brookfield.com/de/strategies/infrastructure",
+        "description": "Brookfield infra DE",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.ardian.com/de/investment-strategies/infrastructure",
+        "description": "Ardian infra DE",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "medium",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.axaim-alts.com/de/infrastructure",
+        "description": "AXA IM Alts infra DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.dws.com/de-de/capabilities/alternatives/infrastructure",
+        "description": "DWS infra DE",
+        "type_source": "asset_manager",
+        "nature_technique": "html_statique",
+        "priorite": "medium",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.allianzgi.de/de/loesungen/alternativen/infrastruktur",
+        "description": "AllianzGI infra DE",
+        "type_source": "asset_manager",
+        "nature_technique": "html_statique",
+        "priorite": "medium",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.amundi.de/institutionelle/loesungen/alternative-anlagen/infrastruktur",
+        "description": "Amundi infra DE",
+        "type_source": "asset_manager",
+        "nature_technique": "html_statique",
+        "priorite": "medium",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.zurich-im.com/de/infrastructure",
+        "description": "Zurich IM infra DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.blackstone.com/businesses/real-assets/infrastructure/germany",
+        "description": "Blackstone infra DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.stonepeak.com/de",
+        "description": "Stonepeak infra DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.meridiam.com/de",
+        "description": "Meridiam infra sociale DE",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.idinvest.com/de/infrastructure",
+        "description": "Idinvest infra DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.equitix.com/de",
+        "description": "Equitix infra DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.infravia.com/de",
+        "description": "InfraVia infra DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.foresight.group/de/infrastructure",
+        "description": "Foresight infra DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.energieinfrastruktur.de",
+        "description": "Spécialiste infra énergie DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.gi-hub.com/resources/infrastructure-gap-germany",
+        "description": "GI Hub gap infra DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.oecd.org/governance/infrastructure-policy/germany.htm",
+        "description": "OCDE infra politique DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.mckinsey.com/de/our-insights/infrastruktur-deutschland",
+        "description": "McKinsey infra DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.deloitte.com/de/de/services/financial-services/infrastruktur-investitionen.html",
+        "description": "Deloitte infra DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.ifo.de/themen/infrastruktur",
+        "description": "Ifo infra économie DE",
+        "type_source": "recherche",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.diw.de/de/diw_01.c.674610.de/infrastruktur.html",
+        "description": "DIW infra analyses",
+        "type_source": "recherche",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.institutional-money.com/magazin/investment/infrastruktur",
+        "description": "Infra institutionnel IM",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.portfolio-institutionell.de/news/infrastructure",
+        "description": "Infra portf. institutionnel",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "medium",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.dasinvestment.com/infrastruktur-fonds",
+        "description": "Infra fonds DAS INVESTMENT",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.fondsprofessionell.de/news/maerkte/headline/infrastruktur",
+        "description": "Infra FONDS professionell",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.inrev.org/resources/research/quarterly-data",
+        "description": "INREV données EU infra",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.preqin.com/insights/research/reports/infrastructure-germany",
+        "description": "Preqin infra DE",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "medium",
+        "methode_scraping": "requests_bs4"
+      }
+    ],
+    "IMMOBILIER PRIVÉ (NON COTÉ)": [
+      {
+        "url": "https://www.gif-ev.de/marktdaten",
+        "description": "GIF données marché immobilier DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.gif-ev.de/gif-dienstleistungen/marktberichte",
+        "description": "Rapports marchés immo DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.bulwiengesa.de/de/publikationen",
+        "description": "Bulwiengesa études immo DE",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.jll.de/de/research",
+        "description": "JLL research immo DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.savills.de/research",
+        "description": "Savills research immo DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.cbrecorporate.de/de/research",
+        "description": "CBRE research immo DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.cushmanwakefield.com/de-de/insights",
+        "description": "Cushman Wakefield immo DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.colliers.de/research",
+        "description": "Colliers research immo DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.destatis.de/DE/Themen/Wirtschaft/Baugewerbe-Wohnungswesen/Tabellen",
+        "description": "Destatis immo stats",
+        "type_source": "donnees_marche",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.bundesbank.de/de/statistiken/konjunktur-und-preise/wohnimmobilienpreise",
+        "description": "Bundesbank prix immo",
+        "type_source": "donnees_marche",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.vdpresearch.de",
+        "description": "VDP research immo DE — référence bancaire",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.diw.de/de/diw_01.c.615551.de/wohnungsmarkt.html",
+        "description": "DIW marché logement DE",
+        "type_source": "recherche",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.empirica-regio.de/marktdaten/wohnungsmarkt",
+        "description": "Empirica marché logement",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.irebs-immobilienakademie.de/forschung",
+        "description": "IREBS recherche immo DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.union-investment.de/home/institutionelle/immobilien",
+        "description": "Union Investment immo inst.",
+        "type_source": "asset_manager",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.deka-immobilien.de",
+        "description": "Deka Immobilien fonds",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.dws.com/de-de/capabilities/alternatives/real-estate",
+        "description": "DWS real estate DE",
+        "type_source": "asset_manager",
+        "nature_technique": "html_statique",
+        "priorite": "medium",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.allianzgi.de/de/loesungen/alternativen/immobilien",
+        "description": "AllianzGI immo DE",
+        "type_source": "asset_manager",
+        "nature_technique": "html_statique",
+        "priorite": "medium",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.commerzreal.com",
+        "description": "Commerz Real immo DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.hansainvest.com/de/immobilien",
+        "description": "Hansainvest immo DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.patrizia.ag/de",
+        "description": "Patrizia AG immo EU basé DE",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "medium",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.catella.de/de",
+        "description": "Catella immo DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.internos.eu/de",
+        "description": "Internos immo DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.aquila-capital.de/de/immobilien",
+        "description": "Aquila Capital immo DE",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.aroundtown.de/de/investor-relations",
+        "description": "Aroundtown immo commercial DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.vonovia.de/de/investor-relations",
+        "description": "Vonovia résidentiel DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.leg-wohnen.de/de/investor-relations",
+        "description": "LEG Wohnen résidentiel DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.corestate-capital.com/de",
+        "description": "Corestate Capital immo DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.nuveen.com/de-de/real-estate/europe",
+        "description": "Nuveen real estate EU DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.pgim.com/real-estate/europe/germany",
+        "description": "PGIM real estate DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.blackstone.com/businesses/real-estate/germany",
+        "description": "Blackstone real estate DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.aberdeenstandard.com/de/immobilien",
+        "description": "Aberdeen Standard immo DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.zia-deutschland.de/publikationen",
+        "description": "ZIA association immo DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.gif-ev.de",
+        "description": "GIF Institut immo DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.immobilienverband.de/statistiken",
+        "description": "IVD stats immo DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.inrev.org",
+        "description": "INREV fonds immo non cotés EU",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.inrev.org/resources/research/quarterly-data",
+        "description": "INREV données trimestrielles",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.ncreif.org/data/germany",
+        "description": "NCREIF immo DE données",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.msci.com/real-estate/germany",
+        "description": "MSCI real estate index DE",
+        "type_source": "donnees_marche",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.institutional-money.com/magazin/investment/immobilien",
+        "description": "Immo institutionnel IM",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.portfolio-institutionell.de/news/real-estate",
+        "description": "Immo portf. institutionnel",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "medium",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.fondsprofessionell.de/news/maerkte/headline/immobilien",
+        "description": "Immo FONDS professionell",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.dasinvestment.com/immobilien",
+        "description": "Immo DAS INVESTMENT",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.handelsblatt.com/finanzen/maerkte/immobilien",
+        "description": "Immo Handelsblatt",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.boersen-zeitung.de/investment/immobilien",
+        "description": "Immo Börsen-Zeitung",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      }
+    ],
+    "VENTURE CAPITAL": [
+      {
+        "url": "https://www.bvk.de/statistiken/venture-capital",
+        "description": "Stats VC BVK DE",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.startupdetector.de/statistiken",
+        "description": "Stats startups DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.bundesverband-deutsche-startups.de/monitor",
+        "description": "Monitor startups DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.dsm.co/german-startup-monitor",
+        "description": "German Startup Monitor annuel",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.high-tech-gruenderfonds.de/portfolio",
+        "description": "HTGF fonds VC public DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.european-investment-fund.de/venture-capital",
+        "description": "EIF VC Allemagne",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.kfw-capital.de/statistiken",
+        "description": "KfW Capital stats VC",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.earlybird.com/de/portfolio",
+        "description": "Earlybird VC DE (leader)",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.hv.capital/de",
+        "description": "HV Capital VC DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.projecta.de",
+        "description": "Project A VC DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.cherry.vc/de",
+        "description": "Cherry Ventures VC DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.visionaries-club.de",
+        "description": "Visionaries Club VC DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.atomico.com/de",
+        "description": "Atomico VC EU DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.dealroom.co/countries/germany",
+        "description": "Dealroom VC data DE",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "medium",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.crunchbase.com/hub/germany-venture-capital",
+        "description": "Crunchbase VC DE",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.pitchbook.com/germany-venture-capital",
+        "description": "PitchBook VC DE",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "medium",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.vc-magazin.de",
+        "description": "VC Magazin presse DE",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.gruenderszene.de/funding",
+        "description": "Gründerszene funding DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.deutsche-startups.de/finanzierungen",
+        "description": "Financements startups DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.handelsblatt.com/finanzen/maerkte/venture-capital",
+        "description": "VC Handelsblatt",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.techcrunch.com/tag/germany",
+        "description": "TechCrunch VC DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      }
+    ],
+    "ACTIFS RÉELS (FORÊTS, TERRES, MAT. PREMIÈRES)": [
+      {
+        "url": "https://www.bundeswaldinventur.de",
+        "description": "Inventaire forêts fédéral DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.land.nrw.de/de/themen/landwirtschaft/foerderung/agrarmittel",
+        "description": "Terres agricoles NRW",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.statistik.de/Landwirtschaft/Bodenpreise",
+        "description": "Prix terres agricoles Destatis",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.forstinvest.de",
+        "description": "Forstinvest investissement forestier DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.aquila-capital.de/de/investitionsloesungen/naturkapital",
+        "description": "Aquila Capital nature DE",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.union-investment.de/home/institutionelle/realassets",
+        "description": "UI real assets institutionnel",
+        "type_source": "asset_manager",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.bml.bund.de/DE/Themen/Landwirtschaft/Agrarstatistik",
+        "description": "Stats agricoles fédérales",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.land-investition.de",
+        "description": "Plateforme investissement foncier DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.farmland-germany.com",
+        "description": "Farmland investissement DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.bloomberg.com/commodities/germany",
+        "description": "Bloomberg commodités DE",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.lme.com/trading/market-data/germany",
+        "description": "LME métaux DE données",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.institutional-money.com/magazin/investment/realassets",
+        "description": "Real assets institutionnel IM",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.portfolio-institutionell.de/news/real-assets",
+        "description": "Real assets portf. inst.",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "medium",
+        "methode_scraping": "requests_bs4"
+      }
+    ],
+    "HEDGE FUNDS & ALTERNATIFS LIQUIDES": [
+      {
+        "url": "https://www.bafin.de/DE/Aufsicht/Fondsaufsicht/HedgeFonds/hedgefonds_node.html",
+        "description": "Hedge funds supervision BaFin",
+        "type_source": "regulateur",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.bafin.de/DE/Aufsicht/Fondsaufsicht/AIFM/aifm_node.html",
+        "description": "AIFM supervision BaFin",
+        "type_source": "regulateur",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.man-investments.com/de",
+        "description": "Man Investments hedge funds DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.winton.com/de",
+        "description": "Winton Group quant DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.bridgewater.com/de",
+        "description": "Bridgewater DE institutionnel",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.twosigma.com/de",
+        "description": "Two Sigma quant DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.deshaw.com/de",
+        "description": "D.E. Shaw DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.marshall-wace.com/de",
+        "description": "Marshall Wace L/S DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.citadel.com/de",
+        "description": "Citadel DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.millenium-management.com/de",
+        "description": "Millennium DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.alcaron.de",
+        "description": "Alcaron Capital hedge DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.lupusalpha.de/fonds/alternative-investments",
+        "description": "Lupus Alpha alternatives DE",
+        "type_source": "asset_manager",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.flossbach-von-storch.com/de/institutionelle/alternativen",
+        "description": "FvS alternatives DE",
+        "type_source": "asset_manager",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.hfrx.com/germanindex",
+        "description": "HFR indices hedge funds DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.barclayhedge.com/germany",
+        "description": "BarclayHedge DE données",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.eurekahedge.com/germany",
+        "description": "Eurekahedge DE données",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.institutional-money.com/magazin/investment/hedge-fonds",
+        "description": "Hedge funds IM",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.portfolio-institutionell.de/news/hedge-funds",
+        "description": "Hedge funds portf. inst.",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "medium",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.dasinvestment.com/hedge-fonds",
+        "description": "Hedge funds DAS INVESTMENT",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.bafin.de/SharedDocs/Veroeffentlichungen/DE/Jahresbericht/alternativefonds",
+        "description": "BaFin rapport alternatifs",
+        "type_source": "regulateur",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      }
+    ],
+    "ELTIF 2.0 & ACCÈS RETAIL AUX NON COTÉS": [
+      {
+        "url": "https://www.bafin.de/DE/Aufsicht/Fondsaufsicht/ELTIF/eltif_node.html",
+        "description": "ELTIF supervision BaFin DE",
+        "type_source": "regulateur",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.bafin.de/DE/Aufsicht/Fondsaufsicht/ELTIF/statistik",
+        "description": "Stats ELTIF enregistrés DE",
+        "type_source": "regulateur",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R0606",
+        "description": "Règlement ELTIF 2.0 texte officiel",
+        "type_source": "regulateur",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.esma.europa.eu/press-news/esma-news/esma-publishes-final-rules-eltif-20",
+        "description": "ESMA règles finales ELTIF 2.0",
+        "type_source": "regulateur",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.esma.europa.eu/press-news/esma-news/esma-publishes-data-eltif-market",
+        "description": "ESMA données marché ELTIF EU",
+        "type_source": "regulateur",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.eltif.com",
+        "description": "Portail actualité ELTIF",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.eltif.com/statistics",
+        "description": "Stats ELTIF par pays",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.eltif.com/germany",
+        "description": "ELTIF marché allemand spécifique",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.eltif-platform.de",
+        "description": "Plateforme ELTIF Allemagne",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.bvi.de/regulierung/eltif",
+        "description": "BVI position ELTIF DE",
+        "type_source": "donnees_marche",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.efama.org/policy-area/eltif",
+        "description": "EFAMA position ELTIF EU",
+        "type_source": "donnees_marche",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.dasinvestment.com/eltif-2-0-deutschland",
+        "description": "ELTIF 2.0 DAS INVESTMENT",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.fondsprofessionell.de/news/maerkte/headline/eltif-2-0-deutschland",
+        "description": "ELTIF 2.0 FP",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.institutional-money.com/magazin/investment/eltif",
+        "description": "ELTIF IM",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.portfolio-institutionell.de/news/eltif",
+        "description": "ELTIF portf. inst.",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "medium",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.handelsblatt.com/finanzen/maerkte/fonds/eltif-2-0-deutschland",
+        "description": "ELTIF 2.0 HB",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.blackrock.com/de/privatanleger/eltif",
+        "description": "BlackRock ELTIF DE — leader",
+        "type_source": "asset_manager",
+        "nature_technique": "html_statique",
+        "priorite": "medium",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.amundi.de/privatkunden/etf-fonds/eltif",
+        "description": "Amundi ELTIF DE",
+        "type_source": "asset_manager",
+        "nature_technique": "html_statique",
+        "priorite": "medium",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.partnersgroup.com/de/eltif",
+        "description": "Partners Group ELTIF EU",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.schroders.com/de-de/de/profi/insights/eltif-2-0",
+        "description": "Schroders ELTIF DE",
+        "type_source": "asset_manager",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.bnpparibas-am.com/de/unsere-expertise/eltif",
+        "description": "BNP PAM ELTIF DE",
+        "type_source": "asset_manager",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.axa-im-alts.com/de/eltif",
+        "description": "AXA IM Alts ELTIF DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.tikehau-capital.com/de/eltif",
+        "description": "Tikehau ELTIF DE",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "medium",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.ardian.com/de/eltif",
+        "description": "Ardian ELTIF DE",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "medium",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.moonfare.com/de/eltif",
+        "description": "Moonfare ELTIF retail DE",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "medium",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.liqid.de/private-equity/eltif",
+        "description": "Liqid ELTIF retail DE",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.finvia.de/eltif",
+        "description": "Finvia ELTIF family office DE",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.idinvest.com/de/eltif",
+        "description": "Idinvest ELTIF DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.eurazeo.com/de/eltif",
+        "description": "Eurazeo ELTIF DE",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.golding-capital.com/de/eltif",
+        "description": "Golding Capital ELTIF DE",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.hep.capital/de/eltif",
+        "description": "hep capital ELTIF énergie DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.astorius.de/eltif",
+        "description": "Astorius ELTIF mid-market DE",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.portfolio-advisors.de/eltif",
+        "description": "Portfolio Advisors ELTIF DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      }
+    ],
+    "INVESTISSEURS INSTITUTIONNELS ALLOCATEURS (NON COTÉS)": [
+      {
+        "url": "https://www.bayerische-versorgungskammer.de/ueber-uns/kapitalanlage/alternative-anlagen",
+        "description": "BVK alternatifs ~100 Mds€",
+        "type_source": "institutionnel",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.vbl.de/de/unternehmen/kapitalanlage/alternative-investments",
+        "description": "VBL alternatives",
+        "type_source": "institutionnel",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.versorgungswerk-blaek.de",
+        "description": "Médecins Bavière allocation",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.pensionskasse.de/alternative-anlagen",
+        "description": "Pensionskassen alternatifs",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.aba-online.de/publikationen/studien/alternative-investments",
+        "description": "ABA études alternatifs bAV",
+        "type_source": "institutionnel",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.gdv.de/de/zahlen-und-fakten/kapitalanlagen/alternative-investments",
+        "description": "GDV assureurs alternatifs DE",
+        "type_source": "institutionnel",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.institutional-money.com/magazin/investment/alternative-investments",
+        "description": "Alt investments IM",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.portfolio-institutionell.de/news/alternative-investments",
+        "description": "Alt investments portf.",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "medium",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.mercer.de/our-thinking/investments/european-asset-allocation-survey.html",
+        "description": "Allocation EU alternatifs Mercer",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.aon.com/germany/retirement/alternative-investments",
+        "description": "AON alternatifs DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.willis-towers-watson.com/de-DE/insights/alternative-investments",
+        "description": "WTW alternatifs DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.telos-fondsrating.de/de/ratings/alternative-investments",
+        "description": "Telos ratings alternatifs",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.scope-explorer.com/funds/alternatives",
+        "description": "Scope alternatives fonds",
+        "type_source": "plateforme",
+        "nature_technique": "dynamique_js",
+        "priorite": "high",
+        "methode_scraping": "playwright"
+      },
+      {
+        "url": "https://www.feri.de/fonds/ratings/alternative-investments",
+        "description": "FERI alternatifs DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      }
+    ],
+    "DONNÉES CROSS-CATÉGORIES & AGRÉGATEURS": [
+      {
+        "url": "https://www.preqin.com/data/germany",
+        "description": "Preqin toutes classes non cotées DE",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "medium",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.pitchbook.com/europe-private-capital",
+        "description": "PitchBook private capital EU",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "medium",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.bvk.de",
+        "description": "BVK toutes classes PE/VC/Infra DE",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.invest-europe.eu/data",
+        "description": "Invest Europe toutes classes EU",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.inrev.org/resources/research",
+        "description": "INREV immo + infra + dette EU",
+        "type_source": "non_cote",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.alternatives.pwc.de",
+        "description": "PwC alternatives DE hub",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.deloitte.com/de/de/services/financial-services/alternative-investments.html",
+        "description": "Deloitte alternatives DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.kpmg.com/de/de/home/themen/2025/alternative-investments.html",
+        "description": "KPMG alternatives DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.ey.com/de_de/financial-services/alternative-investments",
+        "description": "EY alternatives DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.mckinsey.com/de/our-insights/private-markets",
+        "description": "McKinsey private markets",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.bain.com/insights/topics/private-equity/germany",
+        "description": "Bain PE/alternatifs DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.bcg.com/industries/financial-institutions/alternative-investments/germany",
+        "description": "BCG alternatifs DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.oliver-wyman.com/de-de/expertise/alternative-investments.html",
+        "description": "Oliver Wyman alternatifs DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.zeb.de/en/insights/alternative-investments",
+        "description": "ZEB alternatifs DE (spécialiste)",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.nordwealthmanagement.de/alternative-investments",
+        "description": "NordWealth alternatifs DE",
+        "type_source": "autre",
+        "nature_technique": "html_statique",
+        "priorite": "low",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.institutional-money.com/magazin/investment/alternative-investments",
+        "description": "IM hub alternatifs",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.portfolio-institutionell.de/news/private-assets",
+        "description": "Portf. inst. private assets hub",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "medium",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.fondsprofessionell.de/news/maerkte/headline/alternative-investments",
+        "description": "FP alternatifs hub",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.dasinvestment.com/alternative-investments",
+        "description": "DAS INV alternatifs hub",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "high",
+        "methode_scraping": "requests_bs4"
+      },
+      {
+        "url": "https://www.handelsblatt.com/finanzen/maerkte/alternative-investments",
+        "description": "HB alternatifs hub",
+        "type_source": "presse",
+        "nature_technique": "html_statique",
+        "priorite": "high",
         "methode_scraping": "requests_bs4"
       }
     ]

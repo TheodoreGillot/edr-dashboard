@@ -73,7 +73,9 @@ page = st.sidebar.radio("Navigation", [
     "📈 Top Fonds",
     "🏢 Sociétés de gestion",
     "📊 Segmentation marché",
+    "🏗️ Actifs Non Cotés",
     "📋 Réglementation",
+    "📰 Analyse Presse & Légal",
     "🔍 Sources & Scraping",
     "⚙️ Monitoring",
 ])
@@ -481,6 +483,412 @@ elif page == "📊 Segmentation marché":
                 st.metric("AuM couvert par le classement", f"{total_kag/1000:,.0f} Mrd €")
                 st.dataframe(kag_sorted[["entite","valeur","date_donnees"]].rename(columns={
                     "entite":"Société","valeur":"AuM (Mio €)","date_donnees":"Date"}))
+
+
+# ── Page: Actifs Non Cotés ────────────────────────────────────────────────────
+
+elif page == "🏗️ Actifs Non Cotés":
+    st.title("Actifs Non Cotés en Allemagne")
+    st.markdown(
+        "Veille sur les marchés **Private Equity, Private Debt, Infrastructure, Immobilier, "
+        "ELTIF 2.0** — segments stratégiques pour EdRAM en 2026."
+    )
+
+    sources = load_sources()
+    nc_sources = sources[sources["secteur_nom"] == "Actifs Non Cotés"] if not sources.empty else pd.DataFrame()
+
+    # KPIs globaux
+    col1, col2, col3, col4 = st.columns(4)
+    col1.metric("Sources non cotées", len(nc_sources))
+    if not nc_sources.empty:
+        col2.metric("Sous-catégories", nc_sources["sous_categorie"].nunique())
+        col3.metric("Sources prioritaires (high)", (nc_sources["priorite"] == "high").sum())
+        col4.metric("Actives", nc_sources["actif"].sum() if "actif" in nc_sources.columns else len(nc_sources))
+
+    if nc_sources.empty:
+        st.info("Aucune source non cotée. Relancez `python main.py init` pour charger les sources.")
+    else:
+        tabs = st.tabs([
+            "📊 Vue globale", "🏷️ Par sous-catégorie", "🔗 Répertoire sources",
+            "📈 Données scrapées"
+        ])
+
+        with tabs[0]:
+            col_a, col_b = st.columns(2)
+            with col_a:
+                sub_counts = nc_sources["sous_categorie"].value_counts().reset_index()
+                sub_counts.columns = ["Sous-catégorie", "Nb sources"]
+                fig = px.bar(
+                    sub_counts, x="Nb sources", y="Sous-catégorie", orientation="h",
+                    color="Nb sources", color_continuous_scale="Purples",
+                    title="Sources par sous-catégorie non cotée"
+                )
+                fig.update_layout(height=500, showlegend=False,
+                                  yaxis={"categoryorder": "total ascending"})
+                st.plotly_chart(fig, use_container_width=True)
+
+            with col_b:
+                prio_counts = nc_sources["priorite"].value_counts().reset_index()
+                prio_counts.columns = ["Priorité", "Nombre"]
+                fig2 = px.pie(
+                    prio_counts, values="Nombre", names="Priorité", hole=0.45,
+                    title="Répartition par priorité",
+                    color_discrete_map={"high": "#7b1fa2", "medium": "#9c27b0", "low": "#e1bee7"}
+                )
+                st.plotly_chart(fig2, use_container_width=True)
+
+            # Matrice pertinence EdRAM
+            st.subheader("📌 Pertinence stratégique par catégorie pour EdRAM")
+            pertinence_data = {
+                "Catégorie": ["Private Debt", "Infrastructure", "ELTIF 2.0",
+                               "Investisseurs allocateurs", "Agrégateurs cross",
+                               "Private Equity", "Immobilier Privé", "Hedge Funds",
+                               "Venture Capital", "Actifs Réels"],
+                "Pertinence EdRAM": ["FORTE", "FORTE", "FORTE", "FORTE", "FORTE",
+                                      "Moyenne", "Moyenne", "Moyenne", "Faible", "Faible"],
+                "Raison": [
+                    "Extension naturelle gamme obligataire",
+                    "Sondervermögen catalyseur direct 2026",
+                    "Nouveau marché retail non cotés DE",
+                    "Cibles directes de distribution",
+                    "Données de marché consolidées",
+                    "Present mais non prioritaire",
+                    "Demande institutionnelle DE forte",
+                    "Diversification portefeuille",
+                    "Faible synérgie gamme actuelle",
+                    "Faible synérgie gamme actuelle",
+                ],
+                "Score": [5, 5, 5, 5, 4, 3, 3, 3, 1, 1],
+            }
+            df_pert = pd.DataFrame(pertinence_data).sort_values("Score", ascending=False)
+
+            def _color_pertinence(row):
+                color = {"FORTE": "#7b1fa2", "Moyenne": "#9c27b0", "Faible": "#ce93d8"}.get(row["Pertinence EdRAM"], "")
+                return [f"background-color: {color}; color: white" if color else ""] * len(row)
+
+            st.dataframe(
+                df_pert.style.apply(_color_pertinence, axis=1),
+                use_container_width=True,
+            )
+
+        with tabs[1]:
+            subcats = sorted(nc_sources["sous_categorie"].dropna().unique())
+            sel_sub = st.selectbox("Choisir une sous-catégorie", subcats)
+            df_sub = nc_sources[nc_sources["sous_categorie"] == sel_sub]
+            st.metric(f"Sources — {sel_sub}", len(df_sub))
+
+            type_in_sub = df_sub["type_source"].value_counts().reset_index()
+            type_in_sub.columns = ["Type", "Nb"]
+            col_s1, col_s2 = st.columns([1, 2])
+            with col_s1:
+                fig = px.pie(type_in_sub, values="Nb", names="Type", hole=0.4,
+                             title="Par type de source")
+                st.plotly_chart(fig, use_container_width=True)
+            with col_s2:
+                st.dataframe(
+                    df_sub[["url", "domain", "type_source", "methode_scraping", "priorite"]],
+                    height=400,
+                )
+
+        with tabs[2]:
+            # Filtres
+            col_f1, col_f2 = st.columns(2)
+            type_filter = col_f1.selectbox("Type source", ["Tous"] + sorted(nc_sources["type_source"].unique()))
+            prio_filter = col_f2.selectbox("Priorité", ["Tous", "high", "medium", "low"])
+            df_dir = nc_sources.copy()
+            if type_filter != "Tous":
+                df_dir = df_dir[df_dir["type_source"] == type_filter]
+            if prio_filter != "Tous":
+                df_dir = df_dir[df_dir["priorite"] == prio_filter]
+            st.dataframe(
+                df_dir[["url", "domain", "sous_categorie", "type_source",
+                         "methode_scraping", "priorite", "dernier_scrape"]],
+                height=600,
+            )
+
+        with tabs[3]:
+            # Données raw scrapées pour les sources non cotées
+            try:
+                df_raw = pd.read_sql(
+                    """
+                    SELECT sr.url, sr.titre_page, sr.status_code,
+                           sr.scrape_date, sr.duree_ms,
+                           s.sous_categorie
+                    FROM scrape_raw sr
+                    JOIN sources s ON s.id = sr.source_id
+                    WHERE s.secteur_nom = 'Actifs Non Cotés'
+                    ORDER BY sr.scrape_date DESC
+                    LIMIT 500
+                    """,
+                    engine
+                )
+            except Exception:
+                df_raw = pd.DataFrame()
+
+            if df_raw.empty:
+                st.info("Aucune donnée scrapée pour le secteur non coté. Lancez le scraping.")
+            else:
+                st.metric("Pages scrapées (non cotés)", len(df_raw))
+                success_rate = (df_raw["status_code"].between(200, 299)).mean() * 100
+                st.metric("Taux succès HTTP", f"{success_rate:.1f}%")
+                sub_scraped = df_raw["sous_categorie"].value_counts().reset_index()
+                sub_scraped.columns = ["Sous-catégorie", "Pages scrapées"]
+                fig = px.bar(sub_scraped, x="Pages scrapées", y="Sous-catégorie",
+                             orientation="h", color="Pages scrapées",
+                             color_continuous_scale="Purples",
+                             title="Pages scrapées par sous-catégorie")
+                fig.update_layout(height=400, yaxis={"categoryorder":"total ascending"})
+                st.plotly_chart(fig, use_container_width=True)
+                st.dataframe(df_raw[["url", "titre_page", "status_code",
+                                     "sous_categorie", "scrape_date"]].head(200))
+
+
+# ── Page: Analyse Presse & Légal ─────────────────────────────────────────────
+
+elif page == "📰 Analyse Presse & Légal":
+    st.title("Analyse textuelle — Presse & Cadre Légal")
+    st.markdown(
+        "Fréquence des mots-clés dans les pages scrapées des secteurs **Presse** et "
+        "**Cadre Légal & Réglementaire** (Allemand → Français traduit automatiquement)."
+    )
+
+    # Dictionnaire de traduction allemand → français (termes finance/légal clés)
+    DE_FR_DICT = {
+        # Termes financiers généraux
+        "fonds": "fonds", "fondsvermögen": "actifs sous gestion", "investitionen": "investissements",
+        "anleger": "investisseurs", "anlegerinnen": "investisseurs", "kapitalanlage": "placement",
+        "kapitalanlagen": "placements", "geldanlage": "épargne/placement", "rendite": "rendement",
+        "performance": "performance", "risiko": "risque", "risiken": "risques",
+        "markt": "marché", "märkte": "marchés", "marktanteil": "part de marché",
+        "verwaltung": "gestion", "verwaltungsgebühr": "frais de gestion",
+        "nachhaltig": "durable", "nachhaltigkeit": "durabilité",
+        "regulierung": "régulation", "regulierungen": "régulations",
+        "vorschriften": "réglementations", "richtlinie": "directive", "verordnung": "règlement",
+        "gesetz": "loi", "gesetze": "lois", "rechtlich": "juridique",
+        "aufsicht": "supervision", "aufsichtsbehörde": "autorité de supervision",
+        "zulassung": "autorisation", "genehmigung": "approbation",
+        "offenlegung": "divulgation", "transparenz": "transparence",
+        "berichterstattung": "reporting", "bericht": "rapport", "berichte": "rapports",
+        "jahresbericht": "rapport annuel", "halbjahresbericht": "rapport semestriel",
+        "portfolio": "portefeuille", "portfolios": "portefeuilles",
+        "aktien": "actions", "anleihen": "obligations", "renten": "obligations/rentes",
+        "immobilien": "immobilier", "infrastruktur": "infrastructure",
+        "alternativen": "alternatifs", "alternative": "alternatif",
+        "private equity": "private equity", "privatmarkt": "marché privé",
+        "schulden": "dette", "kredit": "crédit", "darlehen": "prêt",
+        "zinsen": "taux d'intérêt", "zins": "intérêt", "zinssatz": "taux",
+        "inflation": "inflation", "deflation": "déflation",
+        "wachstum": "croissance", "wirtschaft": "économie", "wirtschaftlich": "économique",
+        "deutschland": "Allemagne", "europa": "Europe", "europäisch": "européen",
+        "institution": "institution", "institutionell": "institutionnel",
+        "privatanleger": "investisseur privé", "retail": "particuliers",
+        "zuflüsse": "flux entrants", "abflüsse": "flux sortants", "flüsse": "flux",
+        "verwaltete": "géré(s)", "vermögen": "patrimoine/actifs",
+        "sparplan": "plan d'épargne", "sparpläne": "plans d'épargne",
+        "etf": "ETF", "indexfonds": "fonds indiciels", "aktiv": "actif", "passiv": "passif",
+        "kosten": "coûts", "gebühren": "frais", "ter": "TER", "total expense ratio": "ratio de frais total",
+        "vertrieb": "distribution", "vertriebskanal": "canal de distribution",
+        "berater": "conseiller", "beratung": "conseil", "beratungsgebühr": "frais de conseil",
+        "esg": "ESG", "nachhaltige": "durables", "grüne": "verts/vertes",
+        "klimawandel": "changement climatique", "umwelt": "environnement",
+        "sfdr": "SFDR", "artikel": "article", "offenlegungsverordnung": "SFDR",
+        "mifid": "MiFID", "aifmd": "AIFMD", "ucits": "OPCVM", "aifm": "FIA",
+        "bafin": "BaFin", "bundesbank": "Bundesbank", "esma": "ESMA", "efama": "EFAMA",
+        "bvi": "BVI", "eltif": "ELTIF", "aif": "FIA", "spezialfonds": "fonds spéciaux",
+        "sondervermögen": "Sondervermögen", "bundeswehr": "Bundeswehr",
+        "altersvorsorge": "retraite", "rente": "retraite/pension", "pensionskasse": "caisse de pension",
+        "betriebliche": "professionnel(le)", "versicherung": "assurance",
+        "haftung": "responsabilité", "compliance": "conformité",
+        "greenwashing": "greenwashing", "klimarisiken": "risques climatiques",
+        "technologie": "technologie", "digitalisierung": "digitalisation",
+        "künstliche intelligenz": "intelligence artificielle", "blockchain": "blockchain",
+        "daten": "données", "plattform": "plateforme",
+        "institutionelle": "institutionnels", "vermögensverwalter": "gestionnaires d'actifs",
+        "fondsmanager": "gérants de fonds", "fondsgesellschaft": "société de gestion",
+        "kapitalverwaltungsgesellschaft": "société de gestion", "kvg": "SGP",
+        "banken": "banques", "spezialisten": "spécialistes",
+        "wettbewerb": "concurrence", "marktentwicklung": "évolution du marché",
+        "prognose": "prévision", "ausblick": "perspectives",
+        "niedrigzins": "bas taux", "hochzins": "haut rendement", "zinswende": "retournement des taux",
+        "rezession": "récession", "konjunktur": "conjoncture",
+        "high yield": "haut rendement", "investment grade": "investment grade",
+        "unternehmensanleihen": "obligations d'entreprise", "staatsanleihen": "obligations d'État",
+        "covered bonds": "obligations sécurisées", "pfandbriefe": "Pfandbriefe",
+    }
+
+    # Stopwords allemands pour filtrage
+    DE_STOPWORDS = {
+        "die", "der", "das", "und", "ist", "in", "von", "mit", "für", "auf",
+        "an", "zu", "im", "des", "bei", "als", "wie", "eine", "ein", "oder",
+        "sich", "den", "dem", "nicht", "auch", "wird", "aus", "es", "am",
+        "bis", "durch", "mehr", "nach", "zum", "haben", "wird", "werden",
+        "wurde", "waren", "haben", "hatte", "kann", "können", "wird", "werde",
+        "seine", "ihrer", "seinem", "ihrem", "dass", "ob", "wenn", "aber",
+        "noch", "nur", "schon", "seit", "über", "unter", "zwischen", "gegen",
+        "ohne", "während", "wegen", "dabei", "damit", "dazu", "dann", "so",
+        "um", "sind", "hat", "sie", "er", "wir", "ihr", "ihre", "seinen",
+        "diesen", "dieser", "dieses", "einen", "einem", "einer", "jeder",
+        "alle", "allem", "viele", "vielen", "sowie", "dass", "welche",
+        "diesem", "diesen", "hierzu", "hierfür", "dabei", "hieran",
+        "https", "www", "com", "de", "en", "html", "pdf", "htm",
+        "januar", "februar", "märz", "april", "mai", "juni",
+        "juli", "august", "september", "oktober", "november", "dezember",
+        "2024", "2025", "2026", "1", "2", "3", "4", "5", "6", "7", "8",
+    }
+
+    def count_words_from_text(text: str, top_n: int = 60) -> list[tuple[str, int]]:
+        import re
+        from collections import Counter
+        words = re.findall(r'\b[a-zA-ZäöüÄÖÜß]{4,}\b', text.lower())
+        words = [w for w in words if w not in DE_STOPWORDS and len(w) > 3]
+        return Counter(words).most_common(top_n)
+
+    def translate_word(word: str) -> str:
+        """Traduit un mot allemand en français via dictionnaire."""
+        return DE_FR_DICT.get(word.lower(), word)
+
+    # Sélection des secteurs à analyser
+    col_sel1, col_sel2 = st.columns(2)
+    secteurs_dispo = ["Cadre Légal & Réglementaire", "Presse & Classements de Fonds",
+                      "Tendances Produits & Comportement", "Actifs Non Cotés",
+                      "Plan de Relance & Macro"]
+    sel_secteurs = col_sel1.multiselect(
+        "Secteurs à analyser",
+        secteurs_dispo,
+        default=["Cadre Légal & Réglementaire", "Presse & Classements de Fonds"],
+    )
+    top_n_words = col_sel2.slider("Nombre de mots à afficher", 20, 100, 40)
+
+    if not sel_secteurs:
+        st.warning("Sélectionnez au moins un secteur.")
+    else:
+        # Charger les textes scrapés
+        try:
+            placeholders = ",".join(f"'{s}'" for s in sel_secteurs)
+            df_texts = pd.read_sql(
+                f"""
+                SELECT sr.contenu_text, sr.titre_page, sr.url,
+                       s.secteur_nom, s.sous_categorie
+                FROM scrape_raw sr
+                JOIN sources s ON s.id = sr.source_id
+                WHERE s.secteur_nom IN ({placeholders})
+                  AND sr.contenu_text IS NOT NULL
+                  AND length(sr.contenu_text) > 200
+                ORDER BY sr.scrape_date DESC
+                LIMIT 2000
+                """,
+                engine,
+            )
+        except Exception as e:
+            df_texts = pd.DataFrame()
+            st.warning(f"Erreur chargement données: {e}")
+
+        if df_texts.empty:
+            st.info(
+                "Aucun texte scrapé disponible pour les secteurs sélectionnés. "
+                "Lancez le scraping avec `python main.py scrape` puis revenez ici."
+            )
+        else:
+            st.success(f"✅ {len(df_texts)} pages analysées — {df_texts['contenu_text'].str.len().sum():,} caractères")
+
+            # Concaténer tous les textes
+            full_text = " ".join(df_texts["contenu_text"].dropna().tolist())
+            word_counts = count_words_from_text(full_text, top_n=top_n_words)
+
+            if not word_counts:
+                st.info("Textes insuffisants pour l'analyse de fréquence.")
+            else:
+                # Traduire les mots
+                word_df = pd.DataFrame(word_counts, columns=["mot_allemand", "occurrences"])
+                word_df["mot_francais"] = word_df["mot_allemand"].apply(translate_word)
+                word_df["traduit"] = word_df["mot_francais"] != word_df["mot_allemand"]
+
+                tab_wc, tab_by_sector, tab_raw = st.tabs([
+                    "📊 Top mots-clés", "🗂 Par secteur", "📋 Tableau complet"
+                ])
+
+                with tab_wc:
+                    col_chart, col_info = st.columns([3, 1])
+                    with col_chart:
+                        # Barplot horizontal
+                        fig = px.bar(
+                            word_df.head(40),
+                            x="occurrences",
+                            y="mot_francais",
+                            orientation="h",
+                            color="occurrences",
+                            color_continuous_scale="Reds",
+                            hover_data=["mot_allemand", "traduit"],
+                            labels={"occurrences": "Occurrences",
+                                    "mot_francais": "Terme (traduit)"},
+                            title=f"Top {min(40, len(word_df))} termes les plus fréquents "
+                                  f"({', '.join(sel_secteurs)})",
+                        )
+                        fig.update_layout(
+                            height=max(600, len(word_df.head(40)) * 18),
+                            yaxis={"categoryorder": "total ascending"},
+                            showlegend=False,
+                        )
+                        st.plotly_chart(fig, use_container_width=True)
+                    with col_info:
+                        st.markdown("**Légende**")
+                        st.markdown("- Les termes en **gras** sont des termes financiers traduits")
+                        st.markdown(f"- {word_df['traduit'].sum()} termes traduits sur {len(word_df)}")
+                        st.markdown("---")
+                        st.markdown("**Top 10 termes**")
+                        for _, row in word_df.head(10).iterrows():
+                            st.markdown(
+                                f"**{row['mot_francais']}** `{row['occurrences']}x`"
+                                + (f" *(DE: {row['mot_allemand']})*" if row["traduit"] else "")
+                            )
+
+                with tab_by_sector:
+                    for sec in sel_secteurs:
+                        df_sec = df_texts[df_texts["secteur_nom"] == sec]
+                        if df_sec.empty:
+                            continue
+                        st.subheader(f"📂 {sec} — {len(df_sec)} pages")
+                        sec_text = " ".join(df_sec["contenu_text"].dropna().tolist())
+                        sec_words = count_words_from_text(sec_text, top_n=20)
+                        if sec_words:
+                            sec_df = pd.DataFrame(sec_words, columns=["mot_allemand", "occurrences"])
+                            sec_df["mot_francais"] = sec_df["mot_allemand"].apply(translate_word)
+                            fig = px.bar(
+                                sec_df, x="occurrences", y="mot_francais", orientation="h",
+                                color="occurrences", color_continuous_scale="Blues",
+                                title=f"Top 20 — {sec}",
+                                labels={"occurrences": "Occurrences", "mot_francais": "Terme"},
+                            )
+                            fig.update_layout(
+                                height=400, showlegend=False,
+                                yaxis={"categoryorder": "total ascending"},
+                            )
+                            st.plotly_chart(fig, use_container_width=True)
+
+                        # Sous-catégories
+                        st.markdown("**Sous-catégories couvertes :**")
+                        sub_coverage = df_sec["sous_categorie"].value_counts().reset_index()
+                        sub_coverage.columns = ["Sous-catégorie", "Pages"]
+                        st.dataframe(sub_coverage, use_container_width=True, height=200)
+                        st.markdown("---")
+
+                with tab_raw:
+                    st.dataframe(
+                        word_df.rename(columns={
+                            "mot_allemand": "Terme (allemand)",
+                            "mot_francais": "Terme (français)",
+                            "occurrences": "Occurrences",
+                            "traduit": "Traduit",
+                        }),
+                        height=600,
+                        use_container_width=True,
+                    )
+                    st.download_button(
+                        "⬇️ Télécharger CSV",
+                        data=word_df.to_csv(index=False),
+                        file_name="mots_cles_presse_legal.csv",
+                        mime="text/csv",
+                    )
 
 
 # ── Page: Réglementation ─────────────────────────────────────────────────────

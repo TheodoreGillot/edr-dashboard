@@ -58,6 +58,7 @@ SECTORS = {
     7: "Presse & Classements de Fonds",
     8: "Agrégateurs de Données",
     9: "Tendances Produits & Comportement",
+    10: "Actifs Non Cotés",
 }
 
 # ── Classification des types de source ───────────────────────────────────────
@@ -96,6 +97,17 @@ SOURCE_TYPE_RULES = {
     "institutionnel": ["aba-online.de", "gdv.de", "bayerische-versorgungskammer.de",
                        "vbl.de", "stiftungen.org", "bdi.eu", "dihk.de",
                        "pensions-industrie.de", "versorgungswerke.de"],
+    "non_cote": ["bvk.de", "invest-europe.eu", "preqin.com", "pitchbook.com",
+                 "alt-credit.com", "eltif.com", "eltif-platform.de",
+                 "pe-magazin.de", "vc-magazin.de", "private-equity-forum.de",
+                 "inrev.org", "moonfare.com", "tikehau-capital.com",
+                 "ardian.com", "eurazeo.com", "golding-capital.com",
+                 "bridgepoint.eu", "equistone.eu", "dbag.de",
+                 "intermediate-capital.com", "hayfin.com", "pemberton-am.com",
+                 "macquarie.com", "brookfield.com", "meridiam.com",
+                 "liqid.de", "finvia.de", "astorius.de",
+                 "dealroom.co", "crunchbase.com", "mergermarket.com",
+                 "vdpresearch.de", "bulwiengesa.de", "patrizia.ag"],
 }
 
 # ── Priorités de scraping ───────────────────────────────────────────────────
@@ -105,13 +117,19 @@ SCRAPING_PRIORITY = {
         "domains": ["bvi.de", "morningstar.de", "fondsweb.com", "bafin.de",
                      "scope-explorer.com", "bundesbank.de", "esma.europa.eu",
                      "dasinvestment.com", "fondsprofessionell.de",
-                     "institutional-money.com", "handelsblatt.com"]
+                     "institutional-money.com", "handelsblatt.com",
+                     "bvk.de", "invest-europe.eu", "eltif.com",
+                     "alt-credit.com", "inrev.org", "efama.org"]
     },
     "medium": {
         "frequency_hours": 72,
         "domains": ["dws.com", "allianzgi.de", "amundi.de", "pimco.de",
-                     "fidelity.de", "blackrock.com", "efama.org",
-                     "portfolio-institutionell.de", "finanzen.net"]
+                     "fidelity.de", "blackrock.com",
+                     "portfolio-institutionell.de", "finanzen.net",
+                     "preqin.com", "pitchbook.com", "dealroom.co",
+                     "ardian.com", "tikehau-capital.com", "moonfare.com",
+                     "dbag.de", "patrizia.ag", "macquarie.com",
+                     "fundresearch.de", "fww.de", "scope-fonds.de"]
     },
     "low": {
         "frequency_hours": 168,
