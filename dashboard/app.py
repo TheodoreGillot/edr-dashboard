@@ -490,11 +490,15 @@ elif page == "Actifs Non Cotes":
 elif page == "Analyse Presse":
     st.title("Analyse textuelle — Presse & Cadre Legal")
 
-    # ── Dictionnaire DE → FR ─────────────────────────────────────────────────
+    # ── Dictionnaire DE/EN → FR ─────────────────────────────────────────────
     DE_FR_DICT = {
+        # ── Finance & Investissement (DE) ──
         "fonds": "fonds", "fondsvermögen": "actifs sous gestion",
         "investitionen": "investissements", "investition": "investissement",
+        "investieren": "investir", "investoren": "investisseurs",
+        "investor": "investisseur",
         "anleger": "investisseurs", "kapitalanlage": "placement",
+        "geldanlage": "placement financier",
         "rendite": "rendement", "performance": "performance",
         "risiko": "risque", "risiken": "risques",
         "markt": "marche", "märkte": "marches",
@@ -503,6 +507,7 @@ elif page == "Analyse Presse":
         "nachhaltigkeit": "durabilite",
         "regulierung": "regulation", "vorschriften": "reglementations",
         "richtlinie": "directive", "verordnung": "reglement",
+        "regulation": "regulation",
         "gesetz": "loi", "gesetze": "lois", "rechtlich": "juridique",
         "aufsicht": "supervision", "transparenz": "transparence",
         "berichterstattung": "reporting", "bericht": "rapport",
@@ -522,6 +527,7 @@ elif page == "Analyse Presse":
         "sfdr": "SFDR", "mifid": "MiFID", "ucits": "OPCVM",
         "bafin": "BaFin", "esma": "ESMA", "bvi": "BVI", "eltif": "ELTIF",
         "altersvorsorge": "retraite", "versicherung": "assurance",
+        "versicherungen": "assurances",
         "compliance": "conformite",
         "klimarisiken": "risques climatiques",
         "vermögensverwalter": "gestionnaires d'actifs",
@@ -530,7 +536,100 @@ elif page == "Analyse Presse":
         "ausblick": "perspectives", "konjunktur": "conjoncture",
         "unternehmensanleihen": "obligations d'entreprise",
         "staatsanleihen": "obligations d'Etat",
-        # Digitalisation
+        "unternehmen": "entreprises", "gesellschaft": "societe",
+        "themen": "themes", "daten": "donnees",
+        "finanzen": "finances", "finanzaufsicht": "supervision financiere",
+        "politik": "politique", "anbieter": "fournisseurs",
+        "veranstaltungen": "evenements", "recht": "droit",
+        "anlagen": "placements", "experten": "experts",
+        "krypto": "crypto-monnaies",
+        "steuern": "impots", "strategien": "strategies",
+        "analysen": "analyses", "analyse": "analyse",
+        "banken": "banques", "banking": "banque",
+        "technologien": "technologies", "technologie": "technologie",
+        "technik": "technique",
+        "publikationen": "publications", "aktuelles": "actualites",
+        "börse": "bourse", "professionell": "professionnel",
+        "fokus": "focus", "journalismus": "journalisme",
+        "produkte": "produits", "kunden": "clients",
+        "branche": "secteur", "medien": "medias",
+        "media": "medias", "globale": "mondiale",
+        "group": "groupe", "sparen": "epargne",
+        "nachrichten": "actualites", "artikel": "articles",
+        "forschung": "recherche", "expertise": "expertise",
+        "innovation": "innovation", "governance": "gouvernance",
+        "indices": "indices", "index": "indice",
+        "dividenden": "dividendes", "netto": "net",
+        "brutto": "brut", "gesundheit": "sante",
+        "rohstoffe": "matieres premieres",
+        "privatanleger": "investisseurs prives",
+        "elektromobilität": "electromobilite",
+        "außenwirtschaft": "commerce exterieur",
+        "dienstleistungen": "services", "dienste": "services",
+        "statistik": "statistiques", "zukunft": "avenir",
+        "vorsorge": "prevoyance", "positionen": "positions",
+        "arbeit": "travail", "schutz": "protection",
+        "leistungen": "prestations", "bundesregierung": "gouvernement federal",
+        "datenbank": "base de donnees",
+        "veröffentlichungen": "publications",
+        "beiträge": "contributions", "kommentare": "commentaires",
+        "sicherheit": "securite", "stellen": "postes",
+        "aktive": "actif", "erfahren": "decouvrir",
+        "zeitung": "journal", "fragen": "questions",
+        "hilfe": "aide", "auswahl": "selection",
+        "presse": "presse", "präsident": "president",
+        "broker": "courtier",
+        "marché": "marche",
+        "märkte": "marches",
+        # ── Finance & Investissement (EN → FR) ──
+        "management": "gestion", "research": "recherche",
+        "asset": "actif", "assets": "actifs",
+        "investment": "investissement", "investments": "investissements",
+        "markets": "marches", "market": "marche",
+        "insights": "analyses", "sustainability": "durabilite",
+        "sustainable": "durable",
+        "solutions": "solutions", "finance": "finance",
+        "financial": "financier", "capital": "capital",
+        "equity": "fonds propres", "corporate": "entreprise",
+        "money": "argent", "policy": "politique",
+        "overview": "apercu", "european": "europeen",
+        "estate": "immobilier", "funds": "fonds",
+        "investors": "investisseurs", "credit": "credit",
+        "manager": "gestionnaire", "international": "international",
+        "institutional": "institutionnel",
+        "alternative": "alternatif", "private": "prive",
+        "wealth": "patrimoine", "income": "revenu",
+        "value": "valeur", "multi": "multi",
+        "global": "mondial", "energy": "energie",
+        "economic": "economique", "challenges": "defis",
+        "americas": "ameriques", "europe": "Europe",
+        "germany": "Allemagne", "united": "unis",
+        "rankings": "classements", "awards": "recompenses",
+        "advisor": "conseiller", "business": "affaires",
+        "company": "entreprise",
+        "analysis": "analyse", "reporting": "reporting",
+        "report": "rapport", "reports": "rapports",
+        "documents": "documents", "statement": "declaration",
+        "strategy": "strategie", "strategies": "strategies",
+        "industry": "industrie", "sector": "secteur",
+        "growth": "croissance", "returns": "rendements",
+        "dividend": "dividende", "yield": "rendement",
+        "bonds": "obligations", "fixed": "fixe",
+        "rates": "taux", "interest": "interet",
+        "share": "action", "shares": "actions",
+        "index": "indice", "benchmark": "indice de reference",
+        "trading": "negociation", "exchange": "bourse",
+        "banking": "banque", "insurance": "assurance",
+        "pension": "retraite", "retirement": "retraite",
+        "wealth": "patrimoine", "allocation": "allocation",
+        "portfolio": "portefeuille", "risk": "risque",
+        "security": "securite", "regulation": "regulation",
+        "governance": "gouvernance",
+        "green": "vert", "climate": "climat",
+        "transition": "transition", "renewable": "renouvelable",
+        "impact": "impact", "responsible": "responsable",
+        "transparency": "transparence",
+        # ── Digitalisation ──
         "digital": "digitalisation", "digitale": "digitalisation",
         "digitalen": "digitalisation", "digitaler": "digitalisation",
         "digitalisierung": "digitalisation",
@@ -538,7 +637,7 @@ elif page == "Analyse Presse":
         "plattformen": "plateformes", "automatisierung": "automatisation",
         "blockchain": "blockchain",
         "künstliche": "intelligence artificielle",
-        # Construction
+        # ── Construction ──
         "wohnungsbau": "construction logements",
         "baugewerbe": "secteur construction",
         "bauwirtschaft": "industrie construction",
@@ -546,7 +645,7 @@ elif page == "Analyse Presse":
         "neubau": "construction neuve", "hochbau": "construction batiments",
         "tiefbau": "genie civil", "sanierung": "renovation",
         "gebäude": "batiments", "immobilienwirtschaft": "secteur immobilier",
-        # Armement / Defense
+        # ── Armement / Defense ──
         "rüstung": "armement", "rüstungsindustrie": "industrie armement",
         "rüstungsausgaben": "depenses armement",
         "verteidigung": "defense",
@@ -557,7 +656,7 @@ elif page == "Analyse Presse":
         "aufrüstung": "rearmement", "nato": "OTAN",
         "geopolitisch": "geopolitique", "geopolitische": "geopolitiques",
         "sanktionen": "sanctions",
-        # Efficacite energetique
+        # ── Efficacite energetique ──
         "energieeffizienz": "efficacite energetique",
         "energieeffizient": "efficacite energetique",
         "energieverbrauch": "consommation energetique",
@@ -572,6 +671,7 @@ elif page == "Analyse Presse":
     }
 
     DE_STOPWORDS = {
+        # ── Articles, pronoms, prepositions (DE) ──
         "die", "der", "das", "den", "dem", "des",
         "eine", "ein", "einem", "einen", "einer", "eines",
         "und", "oder", "aber", "denn", "weil", "dass", "wenn",
@@ -583,11 +683,14 @@ elif page == "Analyse Presse":
         "sondern", "sowohl", "weder", "zwar",
         "ich", "du", "er", "sie", "es", "wir", "ihr",
         "mich", "dich", "sich", "mir", "dir", "ihm",
-        "uns", "euch", "ihnen", "mein", "dein", "sein",
-        "unser", "euer", "dieser", "diese", "dieses", "diesem",
+        "uns", "euch", "ihnen", "ihrem", "ihren", "ihrer",
+        "mein", "dein", "sein",
+        "unser", "unsere", "unserer", "unserem", "unseren",
+        "euer", "dieser", "diese", "dieses", "diesem",
         "diesen", "jener", "welche", "welcher", "welches",
         "alle", "allem", "allen", "alles", "jede", "jeden",
         "jeder", "kein", "keine", "keinen", "man",
+        # ── Verbes courants (DE) ──
         "ist", "sind", "war", "waren", "wird", "werden", "wurde",
         "wurden", "worden", "hat", "haben", "hatte", "hatten",
         "hätte", "kann", "können", "konnte", "soll", "sollen",
@@ -595,7 +698,11 @@ elif page == "Analyse Presse":
         "muss", "müssen", "musste", "werde", "wäre",
         "sein", "lassen", "macht", "machen", "gemacht",
         "gibt", "geben", "gegeben", "kommt", "kommen",
-        "geht", "gehen",
+        "geht", "gehen", "lesen", "finden", "öffnen",
+        "suchen", "nutzen", "helfen", "folgen", "teilen",
+        "melden", "stehen", "bleiben", "zeigen", "bieten",
+        "führen", "setzen", "nehmen", "bringen", "halten",
+        # ── Adverbes / Connecteurs (DE) ──
         "nicht", "auch", "noch", "nur", "schon", "mehr", "sehr",
         "bereits", "immer", "nie", "oft", "hier", "dort",
         "daher", "deshalb", "jedoch", "trotzdem",
@@ -609,29 +716,51 @@ elif page == "Analyse Presse":
         "zusätzlich", "entsprechend", "beziehungsweise",
         "rund", "etwa", "fast", "wieder", "stets",
         "gerade", "jeweils", "aktuell", "derzeit", "zuletzt",
-        # RGPD / cookies
-        "partner", "partners", "zwecke", "zweck", "zwecken",
+        "besten", "direkt", "wissen", "zusammen", "anderen",
+        "größten", "neues", "meine",
+        # ── RGPD / Cookies / Consent ──
+        "partner", "partners", "partnern", "zwecke", "zweck", "zwecken",
         "einwilligen", "einwilligung", "einwilligungen",
         "speicherung", "gespeichert", "speichern",
-        "werbung", "werbezwecke", "anzeige", "anzeigen",
+        "werbung", "werbezwecke", "werbeleistung",
+        "anzeige", "anzeigen",
         "cookie", "cookies", "cookieeinstellungen",
         "tracking", "tracker", "consent", "zustimmung", "zustimmen",
         "datenschutz", "datenschutzerklärung", "datenschutzhinweis",
-        "datenschutzbestimmungen",
+        "datenschutzbestimmungen", "datenschutzeinstellungen",
         "impressum", "imprint", "rechtliche",
-        "nutzungsbedingungen", "nutzungshinweise",
+        "nutzungsbedingungen", "nutzungshinweise", "nutzungsrechte",
         "ablehnen", "akzeptieren",
         "personalisiert", "personalisierte", "personalisierten",
         "notwendige", "notwendigen", "technische", "technischen",
         "datenverarbeitung", "verarbeitung",
         "drittanbieter", "einstellungen", "präferenzen",
         "verarbeitet", "weitergegeben",
-        # Navigation
-        "menü", "navigation", "klicken", "newsletter",
+        "einverstanden", "barrierefreiheit", "verwendung",
+        "bereitstellung", "messung",
+        "zielgruppenforschung", "personalisierte",
+        "basierte", "netzwerkbasierte",
+        "endgeräte", "widerrufen", "anpassen",
+        # ── Navigation web / UI ──
+        "menü", "untermenü", "submenu", "navigation",
+        "klicken", "newsletter", "briefing",
         "registrieren", "login", "anmelden", "passwort", "kontakt",
         "seite", "seiten", "webseite", "website",
-        "inhalt", "inhalte",
-        # Anglais
+        "inhalt", "inhalte", "informationen",
+        "suche", "zurück", "übersicht", "karriere", "gefunden",
+        "startseite", "bitte", "anschauen", "rechner", "zugriff",
+        "endgerät", "fehler", "depot", "ratgeber",
+        "javascript", "gewünschte", "leider", "jederzeit",
+        "abonnieren", "watchlist", "browser", "toggle",
+        "sparplan", "epaper", "mediathek", "termine",
+        "sprache", "ähnliche", "öffnet", "springen",
+        "archiv", "portal", "magazin", "adresse",
+        "konto", "schließen", "stellenangebote",
+        "externer", "aufgerufene", "fenster",
+        "musterdepot", "vergleich", "vergleiche",
+        "kennungen", "identifikatoren",
+        "entdecken", "erwerben",
+        # ── Anglais stopwords ──
         "the", "and", "for", "with", "this", "that", "from",
         "have", "has", "are", "were", "will", "been", "their",
         "they", "them", "these", "those", "your", "our", "more",
@@ -640,13 +769,25 @@ elif page == "Analyse Presse":
         "who", "how", "can", "may", "must", "should", "would",
         "could", "shall", "please", "click", "read",
         "used", "using", "provide", "provided",
+        "other", "found", "error", "denied", "enable",
+        "continue", "change", "close", "switch", "store",
+        "status", "terms",
         "products", "product", "services", "service",
         "page", "pages", "site", "link", "links",
-        "google", "facebook", "twitter", "linkedin", "youtube",
-        "details", "information", "informationen", "detail",
+        "details", "information", "detail",
         "contact", "home", "back", "next",
-        # Temporel
-        "tage", "monat", "monate", "monaten", "jahr",
+        "search", "access", "english", "deutsch",
+        "content", "events", "feedback",
+        "videos", "podcast", "podcasts",
+        "tools", "country", "interviews",
+        "online", "morning", "paper", "whitepaper",
+        "privacy", "careers",
+        # ── Marques / Noms de sites ──
+        "handelsblatt", "cloudflare", "morningstar", "invesco",
+        "fondsweb", "acatis", "google", "facebook", "twitter",
+        "linkedin", "youtube", "instagram",
+        # ── Temporel / Dates ──
+        "tage", "monat", "monate", "monaten", "monat", "jahr",
         "jahre", "jahren", "stunden",
         "erste", "ersten", "zweite", "zweiten",
         "andere", "anderen", "neue", "neuen", "neuer",
@@ -654,8 +795,14 @@ elif page == "Analyse Presse":
         "weitere", "weiteren", "wenige", "wenigen", "weniger",
         "januar", "februar", "märz", "april", "juni",
         "juli", "august", "september", "oktober", "november", "dezember",
+        # ── Technique / URLs ──
         "https", "http", "www", "html", "php", "pdf", "htm",
         "2020", "2021", "2022", "2023", "2024", "2025", "2026",
+        # ── Mots generiques sans valeur analytique ──
+        "hinweise", "mitglieder", "institute",
+        "personalien", "denker", "spiele",
+        "filialen", "zufällig", "berlin",
+        "analytics",
     }
 
     _CONSENT_MARKERS = {
@@ -686,7 +833,28 @@ elif page == "Analyse Presse":
         return [(w, c) for w, c in counter.most_common(top_n) if c >= 3]
 
     def translate(word: str) -> str:
-        return DE_FR_DICT.get(word.lower(), word)
+        w = word.lower()
+        # 1) Exact match
+        if w in DE_FR_DICT:
+            return DE_FR_DICT[w]
+        # 2) Stem match: try longest matching suffix from the dict
+        #    e.g. "investmentfonds" → "fonds", "immobilienmarkt" → "marche"
+        best = ""
+        for key in DE_FR_DICT:
+            if len(key) >= 5 and w.endswith(key) and len(key) > len(best):
+                best = key
+        if best:
+            return DE_FR_DICT[best]
+        # 3) Common German suffixes → try root
+        for suffix in ("ung", "ungen", "heit", "keit", "isch", "ische",
+                        "ischen", "licher", "liche", "lichen", "lich",
+                        "ieren", "iert", "tion", "tionen"):
+            if w.endswith(suffix) and len(w) - len(suffix) >= 4:
+                root = w[:-len(suffix)]
+                for key in DE_FR_DICT:
+                    if key.startswith(root):
+                        return DE_FR_DICT[key]
+        return word
 
     # Charger les donnees
     all_sectors = ["Cadre Légal & Réglementaire", "Presse & Classements de Fonds",
