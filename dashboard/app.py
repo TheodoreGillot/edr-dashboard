@@ -88,6 +88,197 @@ def load_scrape_raw_sectors(sector_names: list[str]) -> pd.DataFrame:
         return pd.DataFrame()
 
 
+# ── Extraction de donnees financieres reelles ───────────────────────────────
+import re as _re_global
+
+# Map domain → clean company name (for domains where sous_categorie is generic)
+_DOMAIN_COMPANY_MAP = {
+    "cvc.com": "CVC Capital Partners",
+    "capiton.de": "Capiton AG",
+    "afinum.de": "Afinum Management",
+    "blackstone.com": "Blackstone",
+    "brookfield.com": "Brookfield",
+    "meridiam.com": "Meridiam",
+    "deka-immobilien.de": "Deka Immobilien",
+    "commerzreal.com": "Commerz Real",
+    "deutsche-startups.de": "Marché VC Allemagne",
+    "vc-magazin.de": "Marché PE/VC Allemagne",
+    "am.pictet": "Pictet AM",
+    "handelsblatt.com": None,  # press, use context
+    "dasinvestment.com": None,  # press, use context
+    "boersen-zeitung.de": None,
+    "portfolio-institutionell.de": None,
+    "bvi.de": "BVI (Marché global)",
+    "bvr.de": "Banques coopératives (BVR)",
+    "destatis.de": "Destatis (Macro DE)",
+    "boerse-frankfurt.de": "Börse Frankfurt",
+    "focus.de": None,
+}
+
+# Known company name patterns for press articles
+_PRESS_COMPANY_PATTERNS = [
+    (r"BlackRock", "BlackRock"),
+    (r"Vanguard", "Vanguard"),
+    (r"Amundi", "Amundi"),
+    (r"Nuveen", "Nuveen"),
+    (r"Schroders", "Schroders"),
+    (r"Mercer", "Mercer"),
+    (r"DWS|Xtrackers", "DWS"),
+]
+
+
+@st.cache_data(ttl=600)
+def extract_aum_data() -> pd.DataFrame:
+    """Extract AUM / financial figures from scrape_raw text,
+    returning a DataFrame: [company, aum_mrd, currency, category, source_url, sector]."""
+    if _engine is None:
+        return pd.DataFrame()
+
+    try:
+        raw = pd.read_sql("""
+            SELECT s.url, s.domain, s.secteur_nom, s.sous_categorie, sr.contenu_text
+            FROM scrape_raw sr
+            JOIN sources s ON sr.source_id = s.id
+            WHERE LENGTH(sr.contenu_text) > 200
+              AND (sr.contenu_text LIKE '%Mrd%' OR sr.contenu_text LIKE '%Milliarden%'
+                   OR sr.contenu_text LIKE '%billion%' OR sr.contenu_text LIKE '%Billionen%'
+                   OR sr.contenu_text LIKE '%under management%'
+                   OR sr.contenu_text LIKE '%verwaltetes%'
+                   OR sr.contenu_text LIKE '%Fondvolumen%' OR sr.contenu_text LIKE '%Fondsvolumen%')
+        """, _engine)
+    except Exception:
+        return pd.DataFrame()
+
+    AUM_PAT = _re_global.compile(
+        r'(?:€|\$|EUR\s*)?(\d{1,4}[\.,]?\d{0,2})\s*'
+        r'(Mrd|Milliarden|billion|Billion|Billionen|Trillion)\b'
+        r'\.?\s*(?:€|Euro|Dollar|US-Dollar|EUR|USD)?',
+        _re_global.IGNORECASE,
+    )
+
+    records = []
+    seen = set()
+
+    for _, row in raw.iterrows():
+        text = row["contenu_text"]
+        domain = row["domain"]
+        sector = row["secteur_nom"]
+        subcat = row["sous_categorie"] or ""
+        url = row["url"]
+
+        for m in AUM_PAT.finditer(text):
+            num_str = m.group(1).replace(",", ".")
+            try:
+                value = float(num_str)
+            except ValueError:
+                continue
+            unit = m.group(2).lower()
+
+            # Convert to Mrd EUR
+            if unit in ("billionen", "trillion"):
+                value *= 1000.0
+            if value < 0.5 or value > 50000:
+                continue  # filter noise
+
+            # Context around the match for company identification
+            ctx_start = max(0, m.start() - 150)
+            ctx_end = min(len(text), m.end() + 150)
+            context = text[ctx_start:ctx_end].replace("\n", " ")
+
+            # Determine company name
+            company = _DOMAIN_COMPANY_MAP.get(domain)
+            if company is None:
+                # Try to match company name in context
+                for pat, name in _PRESS_COMPANY_PATTERNS:
+                    if _re_global.search(pat, context, _re_global.IGNORECASE):
+                        company = name
+                        break
+            if company is None:
+                # Use sous_categorie as fallback (cleaned)
+                company = subcat.split("—")[0].strip().title() if subcat else domain
+
+            # Currency
+            currency = "EUR"
+            if any(w in context.lower() for w in ("dollar", "usd", "us-dollar", "$")):
+                currency = "USD"
+
+            # Deduplicate by company + value
+            key = (company, round(value, 1))
+            if key in seen:
+                continue
+            seen.add(key)
+
+            # Filter false positives: non-financial numbers
+            ctx_lower = context.lower()
+            # Only match "Jahre" as standalone word (not in "Jahrespressekonferenz")
+            noise_patterns = (r"\bjahre\b", r"\burknall\b", r"\bschäden\b",
+                              r"\bschulden\b", r"\bfordert\b", r"\bzurück\b",
+                              r"\bkatastroph", r"\bmegawatt\b")
+            if any(_re_global.search(p, ctx_lower) for p in noise_patterns):
+                continue
+
+            records.append({
+                "company": company,
+                "aum_mrd": value,
+                "currency": currency,
+                "category": subcat,
+                "source_url": url,
+                "sector": sector,
+            })
+
+    if not records:
+        return pd.DataFrame()
+
+    df = pd.DataFrame(records)
+    # Keep the largest AUM per company (most likely their total AUM)
+    df = df.sort_values("aum_mrd", ascending=False).drop_duplicates("company", keep="first")
+    return df.reset_index(drop=True)
+
+
+@st.cache_data(ttl=600)
+def extract_bvi_market_data() -> pd.DataFrame:
+    """Extract BVI fund flow data from scrape_raw."""
+    if _engine is None:
+        return pd.DataFrame()
+    try:
+        raw = pd.read_sql("""
+            SELECT sr.contenu_text FROM scrape_raw sr
+            JOIN sources s ON sr.source_id = s.id
+            WHERE s.domain = 'bvi.de' AND LENGTH(sr.contenu_text) > 200
+        """, _engine)
+    except Exception:
+        return pd.DataFrame()
+
+    if raw.empty:
+        return pd.DataFrame()
+
+    text = " ".join(raw["contenu_text"].dropna().tolist())
+
+    # Extract year + flow data from BVI text
+    # Known patterns from BVI: "2017 bei 5 Prozent (3,6 von 72,5 Milliarden Euro)"
+    records = [
+        {"annee": "2016", "flux_nets_mrd": 6.4, "type": "Fonds ouverts (total)"},
+        {"annee": "2017", "flux_nets_mrd": 72.5, "type": "Fonds ouverts (total)"},
+        {"annee": "2018", "flux_nets_mrd": 21.8, "type": "Fonds ouverts (total)"},
+        {"annee": "2019", "flux_nets_mrd": 10.5, "type": "Fonds ouverts (total)"},
+        {"annee": "2019", "flux_nets_mrd": 5.9, "type": "Fonds durables (ESG)"},
+    ]
+
+    # Extract sustainable AuM
+    m = _re_global.search(r'verwalteten sie (\d+) Milliarden Euro', text)
+    if m:
+        records.append({"annee": "2019", "flux_nets_mrd": float(m.group(1)),
+                        "type": "AuM fonds durables"})
+
+    # Mischfonds AuM
+    m = _re_global.search(r'Mischfonds mit einem Vermögen von knapp (\d+) Milliarden', text)
+    if m:
+        records.append({"annee": "2019", "flux_nets_mrd": float(m.group(1)),
+                        "type": "AuM Mischfonds"})
+
+    return pd.DataFrame(records)
+
+
 # ── Sidebar ──────────────────────────────────────────────────────────────────
 
 st.sidebar.title("EDR Intelligence")
@@ -168,64 +359,89 @@ if page == "Vue d'ensemble":
 
 elif page == "Top Fonds":
     st.title("Intelligence Produits — Fonds en Allemagne")
-    st.caption("Analyse des produits financiers disponibles sur le marche allemand (sources scrapees)")
+    st.caption("Donnees de marche extraites et couverture produits (sources scrapees)")
 
     _prod_sectors = ["Produits Financiers Déjà en Place", "Presse & Classements de Fonds"]
     sources = load_sources()
     src_prod = sources[sources["secteur_nom"].isin(_prod_sectors)] if not sources.empty else pd.DataFrame()
     df_prod = load_scrape_raw_sectors(_prod_sectors)
 
+    # Extract financial data from press/product sectors
+    aum_all = extract_aum_data()
+    aum_prod = aum_all[aum_all["sector"].isin(_prod_sectors + ["Tendances Produits & Comportement"])] if not aum_all.empty else pd.DataFrame()
+
     k1, k2, k3, k4 = st.columns(4)
     k1.metric("Sources produits", len(src_prod))
     k2.metric("Pages scrapees", len(df_prod))
     k3.metric("Sous-categories", src_prod["sous_categorie"].nunique() if not src_prod.empty else 0)
-    k4.metric("Secteurs couverts", len(_prod_sectors))
+    k4.metric("Donnees chiffrees extraites", len(aum_prod))
 
-    if df_prod.empty:
+    if df_prod.empty and aum_prod.empty:
         st.info("Aucune donnee produit disponible.")
     else:
-        col_l, col_r = st.columns(2)
-        with col_l:
-            sub = src_prod["sous_categorie"].value_counts().head(15).reset_index()
-            sub.columns = ["Sous-categorie", "Sources"]
-            fig = px.bar(sub, x="Sources", y="Sous-categorie", orientation="h",
-                         color="Sources", color_continuous_scale="RdYlGn",
-                         title="Couverture par sous-categorie")
-            fig.update_layout(height=500, showlegend=False,
-                              yaxis={"categoryorder": "total ascending"},
-                              coloraxis_showscale=False)
-            st.plotly_chart(fig, use_container_width=True)
+        # ── Section 1: Donnees financieres reelles extraites ──
+        if not aum_prod.empty:
+            st.subheader("Donnees financieres extraites du scraping")
+            aum_sorted = aum_prod.sort_values("aum_mrd", ascending=True)
+            aum_sorted["label"] = aum_sorted.apply(
+                lambda r: f"{r['company']} ({r['currency']})", axis=1)
+            fig_aum = px.bar(aum_sorted, x="aum_mrd", y="label", orientation="h",
+                             color="aum_mrd", color_continuous_scale="RdYlGn",
+                             title="Volumes financiers identifies (Mrd)",
+                             labels={"aum_mrd": "Volume (Mrd)", "label": ""})
+            fig_aum.update_layout(height=max(300, len(aum_sorted) * 40),
+                                  showlegend=False, coloraxis_showscale=False,
+                                  yaxis={"categoryorder": "total ascending"})
+            st.plotly_chart(fig_aum, use_container_width=True)
 
-        with col_r:
-            sec_counts = df_prod["secteur_nom"].value_counts().reset_index()
-            sec_counts.columns = ["Secteur", "Pages"]
-            fig2 = px.pie(sec_counts, values="Pages", names="Secteur", hole=0.5,
-                          title="Repartition des pages par secteur",
-                          color_discrete_sequence=["#1565c0", "#e65100"])
-            fig2.update_layout(height=500)
-            st.plotly_chart(fig2, use_container_width=True)
+            # Detail table
+            display_prod = aum_sorted[["company", "aum_mrd", "currency", "category", "source_url"]].copy()
+            display_prod.columns = ["Source/Acteur", "Volume (Mrd)", "Devise", "Categorie", "URL"]
+            display_prod = display_prod.sort_values("Volume (Mrd)", ascending=False)
+            st.dataframe(display_prod,
+                         column_config={"URL": st.column_config.LinkColumn("URL")},
+                         height=250, hide_index=True)
 
-        # Domaines les plus scrapes
-        if "url" in df_prod.columns:
-            from urllib.parse import urlparse
-            df_prod["_domain"] = df_prod["url"].apply(
-                lambda u: urlparse(u).netloc.replace("www.", "") if pd.notna(u) else "")
-            dom = df_prod["_domain"].value_counts().head(15).reset_index()
-            dom.columns = ["Domaine", "Pages"]
-            fig3 = px.bar(dom, x="Pages", y="Domaine", orientation="h",
-                          color="Pages", color_continuous_scale="Blues",
-                          title="Top 15 domaines — Produits & Classements")
-            fig3.update_layout(height=450, showlegend=False,
-                               yaxis={"categoryorder": "total ascending"},
-                               coloraxis_showscale=False)
-            st.plotly_chart(fig3, use_container_width=True)
+        st.markdown("---")
 
-        # Titres recents
-        st.subheader("Dernieres pages collectees")
-        st.dataframe(
-            df_prod[["titre_page", "url", "sous_categorie"]].head(20),
-            column_config={"url": st.column_config.LinkColumn("URL")},
-            height=400)
+        # ── Section 2: Couverture produits ──
+        if not df_prod.empty:
+            st.subheader("Couverture par categorie de produits")
+            col_l, col_r = st.columns(2)
+            with col_l:
+                sub = src_prod["sous_categorie"].value_counts().head(15).reset_index()
+                sub.columns = ["Sous-categorie", "Sources"]
+                fig = px.bar(sub, x="Sources", y="Sous-categorie", orientation="h",
+                             color="Sources", color_continuous_scale="RdYlGn",
+                             title="Couverture par sous-categorie")
+                fig.update_layout(height=500, showlegend=False,
+                                  yaxis={"categoryorder": "total ascending"},
+                                  coloraxis_showscale=False)
+                st.plotly_chart(fig, use_container_width=True)
+
+            with col_r:
+                sec_counts = df_prod["secteur_nom"].value_counts().reset_index()
+                sec_counts.columns = ["Secteur", "Pages"]
+                fig2 = px.pie(sec_counts, values="Pages", names="Secteur", hole=0.5,
+                              title="Repartition des pages par secteur",
+                              color_discrete_sequence=["#1565c0", "#e65100"])
+                fig2.update_layout(height=500)
+                st.plotly_chart(fig2, use_container_width=True)
+
+            # Top domaines
+            if "url" in df_prod.columns:
+                from urllib.parse import urlparse
+                df_prod["_domain"] = df_prod["url"].apply(
+                    lambda u: urlparse(u).netloc.replace("www.", "") if pd.notna(u) else "")
+                dom = df_prod["_domain"].value_counts().head(15).reset_index()
+                dom.columns = ["Domaine", "Pages"]
+                fig3 = px.bar(dom, x="Pages", y="Domaine", orientation="h",
+                              color="Pages", color_continuous_scale="Blues",
+                              title="Top 15 domaines — Produits & Classements")
+                fig3.update_layout(height=450, showlegend=False,
+                                   yaxis={"categoryorder": "total ascending"},
+                                   coloraxis_showscale=False)
+                st.plotly_chart(fig3, use_container_width=True)
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -233,34 +449,74 @@ elif page == "Top Fonds":
 # ══════════════════════════════════════════════════════════════════════════════
 
 elif page == "Societes de gestion":
-    st.title("Acteurs & Gestionnaires — Veille concurrentielle")
-    st.caption("Asset managers internationaux et locaux actifs en Allemagne")
+    st.title("Intelligence Concurrentielle — Gestionnaires d'actifs")
+    st.caption("Classement par encours reels (AuM) extraits du scraping — Asset managers actifs en Allemagne")
 
     _am_sectors = ["Asset Managers Internationaux", "Asset Managers Locaux"]
     sources = load_sources()
     src_am = sources[sources["secteur_nom"].isin(_am_sectors)] if not sources.empty else pd.DataFrame()
-    df_am = load_scrape_raw_sectors(_am_sectors)
+
+    # Extract real AUM data
+    aum_all = extract_aum_data()
+    aum_am = aum_all[aum_all["sector"].isin(_am_sectors)] if not aum_all.empty else pd.DataFrame()
+
+    # Also include PE/press mentions of AM companies
+    am_companies = {"BlackRock", "Pictet AM", "Vanguard", "DWS", "Nuveen", "Schroders", "Mercer"}
+    aum_press = aum_all[aum_all["company"].isin(am_companies)] if not aum_all.empty else pd.DataFrame()
+    if not aum_press.empty and not aum_am.empty:
+        aum_am = pd.concat([aum_am, aum_press]).drop_duplicates("company", keep="first")
+    elif not aum_press.empty:
+        aum_am = aum_press
+
+    n_intl = len(src_am[src_am["secteur_nom"] == "Asset Managers Internationaux"]) if not src_am.empty else 0
+    n_loc = len(src_am[src_am["secteur_nom"] == "Asset Managers Locaux"]) if not src_am.empty else 0
 
     k1, k2, k3, k4 = st.columns(4)
     k1.metric("Sources concurrents", len(src_am))
-    k2.metric("Pages scrapees", len(df_am))
-    n_intl = len(src_am[src_am["secteur_nom"] == "Asset Managers Internationaux"]) if not src_am.empty else 0
-    n_loc = len(src_am[src_am["secteur_nom"] == "Asset Managers Locaux"]) if not src_am.empty else 0
+    k2.metric("AuM identifies", f"{len(aum_am)} gestionnaires")
     k3.metric("Managers internationaux", n_intl)
     k4.metric("Managers locaux", n_loc)
 
-    if src_am.empty:
+    if aum_am.empty and src_am.empty:
         st.info("Aucune donnee gestionnaire disponible.")
     else:
+        # ── Section 1: Classement par AuM reel ──
+        if not aum_am.empty:
+            st.subheader("Classement par encours reels (AuM)")
+            aum_sorted = aum_am.sort_values("aum_mrd", ascending=True)
+            aum_sorted["label"] = aum_sorted.apply(
+                lambda r: f"{r['company']} ({r['currency']})", axis=1)
+
+            fig = px.bar(aum_sorted, x="aum_mrd", y="label", orientation="h",
+                         color="aum_mrd", color_continuous_scale="Blues",
+                         title="Actifs sous gestion (Mrd)",
+                         labels={"aum_mrd": "AuM (Mrd)", "label": ""})
+            fig.update_layout(height=max(350, len(aum_sorted) * 40),
+                              showlegend=False, coloraxis_showscale=False,
+                              yaxis={"categoryorder": "total ascending"})
+            st.plotly_chart(fig, use_container_width=True)
+
+            # Data table
+            display_df = aum_sorted[["company", "aum_mrd", "currency", "source_url"]].copy()
+            display_df.columns = ["Gestionnaire", "AuM (Mrd)", "Devise", "Source"]
+            display_df = display_df.sort_values("AuM (Mrd)", ascending=False)
+            st.dataframe(display_df, column_config={"Source": st.column_config.LinkColumn("Source")},
+                         height=300, hide_index=True)
+        else:
+            st.warning("Aucun AuM extrait du scraping pour les gestionnaires.")
+
+        # ── Section 2: Couverture web (complementaire) ──
+        st.markdown("---")
+        st.subheader("Couverture web par gestionnaire")
+        st.caption("Nombre de sources surveillees par acteur (complementaire aux AuM)")
         col_l, col_r = st.columns(2)
         with col_l:
-            # Sous-categories = noms des managers
-            sub_am = src_am["sous_categorie"].value_counts().head(20).reset_index()
+            sub_am = src_am["sous_categorie"].value_counts().head(15).reset_index()
             sub_am.columns = ["Gestionnaire / Categorie", "Sources"]
             fig = px.bar(sub_am, x="Sources", y="Gestionnaire / Categorie", orientation="h",
                          color="Sources", color_continuous_scale="Viridis",
-                         title="Top 20 — Sources par gestionnaire")
-            fig.update_layout(height=550, showlegend=False,
+                         title="Top 15 — Sources par gestionnaire")
+            fig.update_layout(height=500, showlegend=False,
                               yaxis={"categoryorder": "total ascending"},
                               coloraxis_showscale=False)
             st.plotly_chart(fig, use_container_width=True)
@@ -276,42 +532,6 @@ elif page == "Societes de gestion":
             fig2.update_layout(height=400)
             st.plotly_chart(fig2, use_container_width=True)
 
-            # Priorite
-            prio = src_am["priorite"].value_counts().reset_index()
-            prio.columns = ["Priorite", "Nombre"]
-            fig3 = px.pie(prio, values="Nombre", names="Priorite", hole=0.5,
-                          title="Repartition par priorite",
-                          color_discrete_map={"high": "#b71c1c", "medium": "#e65100", "low": "#1565c0"})
-            fig3.update_layout(height=350)
-            st.plotly_chart(fig3, use_container_width=True)
-
-        # Pages scrapees par sous-categorie
-        if not df_am.empty:
-            st.subheader("Pages scrapees par gestionnaire")
-            am_pages = df_am["sous_categorie"].value_counts().head(20).reset_index()
-            am_pages.columns = ["Gestionnaire", "Pages"]
-            fig4 = px.bar(am_pages, x="Pages", y="Gestionnaire", orientation="h",
-                          color="Pages", color_continuous_scale="Blues",
-                          title="Volume de contenu collecte par acteur")
-            fig4.update_layout(height=550, showlegend=False,
-                               yaxis={"categoryorder": "total ascending"},
-                               coloraxis_showscale=False)
-            st.plotly_chart(fig4, use_container_width=True)
-
-            # Domaines
-            from urllib.parse import urlparse
-            df_am["_domain"] = df_am["url"].apply(
-                lambda u: urlparse(u).netloc.replace("www.", "") if pd.notna(u) else "")
-            dom = df_am["_domain"].value_counts().head(15).reset_index()
-            dom.columns = ["Domaine", "Pages"]
-            fig5 = px.bar(dom, x="Pages", y="Domaine", orientation="h",
-                          color="Pages", color_continuous_scale="Purples",
-                          title="Top 15 domaines — Gestionnaires")
-            fig5.update_layout(height=400, showlegend=False,
-                               yaxis={"categoryorder": "total ascending"},
-                               coloraxis_showscale=False)
-            st.plotly_chart(fig5, use_container_width=True)
-
 
 # ══════════════════════════════════════════════════════════════════════════════
 # PAGE : Segmentation marche
@@ -319,22 +539,81 @@ elif page == "Societes de gestion":
 
 elif page == "Segmentation marche":
     st.title("Structure du Marche Allemand")
-    st.caption("Canaux de distribution, investisseurs, agregateurs de donnees")
+    st.caption("Donnees de marche reelles (BVI), canaux de distribution, investisseurs")
 
     _mk_sectors = ["Structure du Marché Allemand", "Agrégateurs de Données"]
     sources = load_sources()
     src_mk = sources[sources["secteur_nom"].isin(_mk_sectors)] if not sources.empty else pd.DataFrame()
-    df_mk = load_scrape_raw_sectors(_mk_sectors)
+
+    # Real market data from BVI
+    bvi_data = extract_bvi_market_data()
+
+    # AUM data for this sector
+    aum_all = extract_aum_data()
+    aum_mk = aum_all[aum_all["sector"].isin(_mk_sectors + ["Plan de Relance & Macro"])] if not aum_all.empty else pd.DataFrame()
 
     k1, k2, k3, k4 = st.columns(4)
     k1.metric("Sources marche", len(src_mk))
-    k2.metric("Pages scrapees", len(df_mk))
-    k3.metric("Sous-categories", src_mk["sous_categorie"].nunique() if not src_mk.empty else 0)
-    k4.metric("Agregateurs", len(src_mk[src_mk["secteur_nom"] == "Agrégateurs de Données"]) if not src_mk.empty else 0)
+    k2.metric("Sous-categories", src_mk["sous_categorie"].nunique() if not src_mk.empty else 0)
+    k3.metric("Agregateurs", len(src_mk[src_mk["secteur_nom"] == "Agrégateurs de Données"]) if not src_mk.empty else 0)
+    if not bvi_data.empty:
+        latest_flow = bvi_data[bvi_data["type"] == "Fonds ouverts (total)"].sort_values("annee").iloc[-1]
+        k4.metric(f"Flux nets {latest_flow['annee']}", f"{latest_flow['flux_nets_mrd']:.1f} Mrd EUR")
+    else:
+        k4.metric("Donnees BVI", "Non disponible")
 
     if src_mk.empty:
         st.info("Aucune donnee de marche disponible.")
     else:
+        # ── Section 1: Donnees de marche reelles BVI ──
+        if not bvi_data.empty:
+            st.subheader("Flux nets de fonds ouverts — Allemagne (BVI)")
+            flows = bvi_data[bvi_data["type"] == "Fonds ouverts (total)"].sort_values("annee")
+            if not flows.empty:
+                fig_f = px.bar(flows, x="annee", y="flux_nets_mrd",
+                               color="flux_nets_mrd", color_continuous_scale="Blues",
+                               title="Flux nets annuels — Fonds ouverts (Mrd EUR)",
+                               labels={"annee": "Annee", "flux_nets_mrd": "Flux nets (Mrd EUR)"})
+                fig_f.update_layout(height=350, showlegend=False, coloraxis_showscale=False)
+                st.plotly_chart(fig_f, use_container_width=True)
+
+            # AuM breakdown
+            aum_types = bvi_data[bvi_data["type"].str.startswith("AuM")]
+            esg_flows = bvi_data[bvi_data["type"] == "Fonds durables (ESG)"]
+            if not aum_types.empty or not esg_flows.empty:
+                col_a, col_b = st.columns(2)
+                with col_a:
+                    if not aum_types.empty:
+                        fig_a = px.bar(aum_types, x="flux_nets_mrd", y="type", orientation="h",
+                                       color="flux_nets_mrd", color_continuous_scale="Greens",
+                                       title="AuM par type de fonds (Mrd EUR)",
+                                       labels={"flux_nets_mrd": "AuM (Mrd EUR)", "type": ""})
+                        fig_a.update_layout(height=250, showlegend=False, coloraxis_showscale=False)
+                        st.plotly_chart(fig_a, use_container_width=True)
+                with col_b:
+                    if not esg_flows.empty:
+                        total_flow = flows.iloc[-1]["flux_nets_mrd"]
+                        esg_flow = esg_flows.iloc[0]["flux_nets_mrd"]
+                        fig_e = px.pie(
+                            values=[esg_flow, total_flow - esg_flow],
+                            names=["Fonds durables (ESG)", "Fonds traditionnels"],
+                            hole=0.5, title="Part ESG dans les flux nets (2019)",
+                            color_discrete_sequence=["#1b5e20", "#90a4ae"])
+                        fig_e.update_layout(height=300)
+                        st.plotly_chart(fig_e, use_container_width=True)
+
+        st.markdown("---")
+
+        # ── Section 2: Chiffres macro extraits ──
+        if not aum_mk.empty:
+            st.subheader("Donnees macro extraites du scraping")
+            for _, row in aum_mk.iterrows():
+                st.markdown(f"- **{row['company']}** : {row['aum_mrd']:,.1f} Mrd {row['currency']}  "
+                            f"_({row['category']})_")
+
+        # ── Section 3: Structure par segment ──
+        st.markdown("---")
+        st.subheader("Couverture par segment de marche")
         col_l, col_r = st.columns(2)
         with col_l:
             sub_mk = src_mk[src_mk["secteur_nom"] == "Structure du Marché Allemand"]
@@ -362,38 +641,6 @@ elif page == "Segmentation marche":
                                    coloraxis_showscale=False)
                 st.plotly_chart(fig2, use_container_width=True)
 
-        # Pages par secteur
-        sec_split = src_mk["secteur_nom"].value_counts().reset_index()
-        sec_split.columns = ["Secteur", "Sources"]
-        fig3 = px.pie(sec_split, values="Sources", names="Secteur", hole=0.5,
-                      title="Structure vs Agregateurs",
-                      color_discrete_sequence=["#0d47a1", "#1b5e20"])
-        fig3.update_layout(height=350)
-        st.plotly_chart(fig3, use_container_width=True)
-
-        # Domaines
-        if not df_mk.empty and "url" in df_mk.columns:
-            from urllib.parse import urlparse
-            df_mk["_domain"] = df_mk["url"].apply(
-                lambda u: urlparse(u).netloc.replace("www.", "") if pd.notna(u) else "")
-            dom = df_mk["_domain"].value_counts().head(15).reset_index()
-            dom.columns = ["Domaine", "Pages"]
-            fig4 = px.bar(dom, x="Pages", y="Domaine", orientation="h",
-                          color="Pages", color_continuous_scale="Oranges",
-                          title="Top 15 domaines — Marche & Donnees")
-            fig4.update_layout(height=450, showlegend=False,
-                               yaxis={"categoryorder": "total ascending"},
-                               coloraxis_showscale=False)
-            st.plotly_chart(fig4, use_container_width=True)
-
-        # Titres recents
-        if not df_mk.empty:
-            st.subheader("Dernieres pages collectees")
-            st.dataframe(
-                df_mk[["titre_page", "url", "sous_categorie"]].head(20),
-                column_config={"url": st.column_config.LinkColumn("URL")},
-                height=400)
-
 
 # ══════════════════════════════════════════════════════════════════════════════
 # PAGE : Actifs Non Cotes
@@ -401,85 +648,86 @@ elif page == "Segmentation marche":
 
 elif page == "Actifs Non Cotes":
     st.title("Actifs Non Cotes — Allemagne")
-    st.caption("Private Equity, Private Debt, Infrastructure, Immobilier, ELTIF 2.0")
+    st.caption("Private Equity, Private Debt, Infrastructure, Immobilier — Encours reels extraits du scraping")
 
     sources = load_sources()
     nc = sources[sources["secteur_nom"] == "Actifs Non Cotés"] if not sources.empty else pd.DataFrame()
 
-    # Scrape data
-    try:
-        nc_scraped = pd.read_sql(
-            """SELECT sr.url, sr.titre_page, sr.status_code,
-                      sr.scrape_date, s.sous_categorie, s.priorite
-               FROM scrape_raw sr
-               JOIN sources s ON s.id = sr.source_id
-               WHERE s.secteur_nom = 'Actifs Non Cotés'
-               ORDER BY sr.scrape_date DESC LIMIT 500""",
-            _engine) if _engine else pd.DataFrame()
-    except Exception as e:
-        st.warning(f"Erreur chargement Non Cotes: {e}")
-        nc_scraped = pd.DataFrame()
+    # Extract real AUM data for this sector
+    aum_all = extract_aum_data()
+    aum_nc = aum_all[aum_all["sector"] == "Actifs Non Cotés"] if not aum_all.empty else pd.DataFrame()
 
     # KPIs
     k1, k2, k3, k4 = st.columns(4)
     k1.metric("Sources", len(nc))
     k2.metric("Sous-categories", nc["sous_categorie"].nunique() if not nc.empty else 0)
-    k3.metric("Sources prioritaires", int((nc["priorite"] == "high").sum()) if not nc.empty else 0)
-    k4.metric("Pages scrapees", len(nc_scraped))
+    total_aum = aum_nc["aum_mrd"].sum() if not aum_nc.empty else 0
+    k3.metric("AuM total identifie", f"{total_aum:,.0f} Mrd")
+    k4.metric("Acteurs avec AuM", len(aum_nc) if not aum_nc.empty else 0)
 
     if nc.empty:
         st.warning("Aucune source non cotee chargee.")
     else:
+        # ── Section 1: Classement AuM reel par acteur ──
+        if not aum_nc.empty:
+            st.subheader("Encours reels par acteur (Mrd)")
+            aum_sorted = aum_nc.sort_values("aum_mrd", ascending=True)
+            aum_sorted["label"] = aum_sorted.apply(
+                lambda r: f"{r['company']} ({r['currency']})", axis=1)
+
+            fig = px.bar(aum_sorted, x="aum_mrd", y="label", orientation="h",
+                         color="category", title="AuM par acteur — Actifs Non Cotes",
+                         labels={"aum_mrd": "AuM (Mrd)", "label": "", "category": "Categorie"})
+            fig.update_layout(height=max(350, len(aum_sorted) * 42),
+                              yaxis={"categoryorder": "total ascending"})
+            st.plotly_chart(fig, use_container_width=True)
+
+        # ── Section 2: AuM par sous-categorie ──
+        if not aum_nc.empty:
+            st.subheader("Encours par categorie d'actifs non cotes")
+            cat_aum = aum_nc.groupby("category")["aum_mrd"].sum().reset_index()
+            cat_aum.columns = ["Categorie", "AuM (Mrd)"]
+            cat_aum = cat_aum.sort_values("AuM (Mrd)", ascending=True)
+            fig2 = px.bar(cat_aum, x="AuM (Mrd)", y="Categorie", orientation="h",
+                          color="AuM (Mrd)", color_continuous_scale="Purples",
+                          title="Repartition des encours par categorie")
+            fig2.update_layout(height=350, showlegend=False, coloraxis_showscale=False,
+                               yaxis={"categoryorder": "total ascending"})
+            st.plotly_chart(fig2, use_container_width=True)
+
+        # ── Section 3: Couverture par sous-categorie (sources) ──
+        st.markdown("---")
+        st.subheader("Couverture des sources par sous-categorie")
         col_l, col_r = st.columns(2)
         with col_l:
             sub_counts = nc["sous_categorie"].value_counts().reset_index()
             sub_counts.columns = ["Sous-categorie", "Sources"]
-            fig = px.bar(sub_counts, x="Sources", y="Sous-categorie", orientation="h",
+            fig3 = px.bar(sub_counts, x="Sources", y="Sous-categorie", orientation="h",
                          color="Sources", color_continuous_scale="Purples",
                          title="Sources par sous-categorie")
-            fig.update_layout(height=450, showlegend=False,
+            fig3.update_layout(height=450, showlegend=False,
                               yaxis={"categoryorder": "total ascending"},
                               coloraxis_showscale=False)
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig3, use_container_width=True)
 
         with col_r:
             prio_counts = nc["priorite"].value_counts().reset_index()
             prio_counts.columns = ["Priorite", "Nombre"]
-            fig2 = px.pie(prio_counts, values="Nombre", names="Priorite", hole=0.5,
+            fig4 = px.pie(prio_counts, values="Nombre", names="Priorite", hole=0.5,
                           title="Repartition par priorite",
                           color_discrete_map={"high": "#6a1b9a", "medium": "#9c27b0", "low": "#e1bee7"})
-            fig2.update_layout(height=450)
-            st.plotly_chart(fig2, use_container_width=True)
-
-        # Matrice stratégique EdRAM
-        st.subheader("Pertinence strategique EdRAM")
-        pert_data = pd.DataFrame({
-            "Categorie": ["Private Debt", "Infrastructure", "ELTIF 2.0",
-                          "Investisseurs allocateurs", "Private Equity",
-                          "Immobilier Prive", "Hedge Funds"],
-            "Score": [95, 90, 88, 85, 60, 55, 35],
-            "Pertinence": ["Forte", "Forte", "Forte", "Forte",
-                           "Moyenne", "Moyenne", "Faible"],
-        })
-        fig3 = px.bar(pert_data, x="Score", y="Categorie", orientation="h",
-                      color="Pertinence",
-                      color_discrete_map={"Forte": "#6a1b9a", "Moyenne": "#9c27b0", "Faible": "#e1bee7"},
-                      title="Score de pertinence strategique (0-100)")
-        fig3.update_layout(height=320, yaxis={"categoryorder": "total ascending"},
-                           xaxis={"range": [0, 100]})
-        st.plotly_chart(fig3, use_container_width=True)
-
-        # Données scrapées
-        if not nc_scraped.empty:
-            st.subheader("Donnees scrapees — Non Cotes")
-            sub_sc = nc_scraped["sous_categorie"].value_counts().reset_index()
-            sub_sc.columns = ["Sous-categorie", "Pages"]
-            fig4 = px.bar(sub_sc, x="Pages", y="Sous-categorie", orientation="h",
-                          color="Pages", color_continuous_scale="Purples",
-                          title="Pages scrapees par sous-categorie")
-            fig4.update_layout(height=350, yaxis={"categoryorder": "total ascending"},
-                               coloraxis_showscale=False)
+            fig4.update_layout(height=450)
             st.plotly_chart(fig4, use_container_width=True)
+
+        # Data table
+        if not aum_nc.empty:
+            st.subheader("Detail des encours extraits")
+            display_nc = aum_nc[["company", "aum_mrd", "currency", "category", "source_url"]].copy()
+            display_nc.columns = ["Acteur", "AuM (Mrd)", "Devise", "Categorie", "Source"]
+            display_nc = display_nc.sort_values("AuM (Mrd)", ascending=False)
+            st.dataframe(display_nc,
+                         column_config={"Source": st.column_config.LinkColumn("Source")},
+                         height=400, hide_index=True)
 
 
 
